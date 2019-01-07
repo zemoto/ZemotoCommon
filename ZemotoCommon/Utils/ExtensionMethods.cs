@@ -30,5 +30,16 @@ namespace ZemotoCommon.Utils
          var attribute = property.GetCustomAttributes( typeof( T ), false ).FirstOrDefault();
          return attribute as T;
       }
+
+      public static IEnumerable<T> GetAttributes<T>( this Enum enumValue ) where T : Attribute
+      {
+         var enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() ).First();
+         return GetAttributes<T>( enumValueInfo );
+      }
+
+      public static IEnumerable<T> GetAttributes<T>( this ICustomAttributeProvider property ) where T : Attribute
+      {
+         return property.GetCustomAttributes( typeof( T ), false ).Cast<T>();
+      }
    }
 }
