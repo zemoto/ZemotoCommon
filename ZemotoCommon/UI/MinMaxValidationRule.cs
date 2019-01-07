@@ -31,6 +31,7 @@ namespace ZemotoCommon.UI
          : base( path )
       {
          ValidationRules.Add( new IntMinMaxValidationRule( min, max ) );
+         UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
       }
    }
 
@@ -61,6 +62,7 @@ namespace ZemotoCommon.UI
          : base( path )
       {
          ValidationRules.Add( new DoubleMinMaxValidationRule( min, max ) );
+         UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
       }
    }
 }
