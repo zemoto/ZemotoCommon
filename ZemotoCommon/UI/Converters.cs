@@ -8,9 +8,13 @@ namespace ZemotoCommon.UI
 {
    public sealed class EqualityToVisibilityConverter : IValueConverter
    {
+      public bool Invert { get; set; }
+
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
       {
-         return value.Equals( parameter ) ? Visibility.Visible : Visibility.Collapsed;
+         var equalityFunction = value == null ? new Func<object, bool>( x => x == null ) : value.Equals;
+         return Invert ? equalityFunction( parameter ) ? Visibility.Collapsed : Visibility.Visible 
+                       : equalityFunction( parameter ) ? Visibility.Visible : Visibility.Collapsed;
       }
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
