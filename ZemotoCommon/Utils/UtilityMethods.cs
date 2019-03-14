@@ -12,7 +12,7 @@ namespace ZemotoCommon.Utils
             {
                File.Delete( filePath );
             }
-            catch { }
+            catch { /*ignored*/ }
          }
       }
 
