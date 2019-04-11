@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+// ReSharper disable FieldCanBeMadeReadOnly.Local
+// ReSharper disable MemberCanBePrivate.Local
+// ReSharper disable BuiltInTypeReferenceStyle
+// ReSharper disable InconsistentNaming
 
 namespace ZemotoCommon.Utils
 {
@@ -27,7 +31,7 @@ namespace ZemotoCommon.Utils
             BasicLimitInformation = info
          };
 
-         int length = Marshal.SizeOf( typeof(JOBOBJECT_EXTENDED_LIMIT_INFORMATION) );
+         var length = Marshal.SizeOf( typeof(JOBOBJECT_EXTENDED_LIMIT_INFORMATION) );
          var extendedInfoPtr = Marshal.AllocHGlobal( length );
          Marshal.StructureToPtr( extendedInfo, extendedInfoPtr, false );
 
