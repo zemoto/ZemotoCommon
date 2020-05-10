@@ -12,6 +12,14 @@ namespace ZemotoCommon.Utils
          return target;
       }
 
+      public static string CopyFileToFolder( string filePath, string targetDir )
+      {
+         var fileName = Path.GetFileName( filePath );
+         var target = Path.Combine( targetDir, fileName );
+         File.Copy( filePath, target );
+         return target;
+      }
+
       public static string RenameFile( string filePath, string newName )
       {
          var dir = Path.GetDirectoryName( filePath );
