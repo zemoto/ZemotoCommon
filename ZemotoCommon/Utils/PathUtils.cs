@@ -8,6 +8,12 @@ namespace ZemotoCommon.Utils
       {
          var fileName = Path.GetFileName( filePath );
          var target = Path.Combine( targetDir, fileName );
+
+         if ( !File.Exists( target ) )
+         {
+            File.Delete( target );
+         }
+
          File.Move( filePath, target );
          return target;
       }
@@ -16,6 +22,12 @@ namespace ZemotoCommon.Utils
       {
          var fileName = Path.GetFileName( filePath );
          var target = Path.Combine( targetDir, fileName );
+
+         if ( File.Exists( target ) )
+         {
+            File.Delete( target );
+         }
+
          File.Copy( filePath, target );
          return target;
       }
