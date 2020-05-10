@@ -11,12 +11,16 @@ namespace ZemotoCommon.Utils
             var fileName = Path.GetFileName( filePath );
             var target = Path.Combine( targetDir, fileName );
 
-            if ( !File.Exists( target ) )
+            if ( filePath != target )
             {
-               File.Delete( target );
-            }
+               if ( !File.Exists( target ) )
+               {
+                  File.Delete( target );
+               }
 
-            File.Move( filePath, target );
+               File.Move( filePath, target );
+            }
+            
             newPath = target;
             return true;
          }
@@ -34,12 +38,16 @@ namespace ZemotoCommon.Utils
             var fileName = Path.GetFileName( filePath );
             var target = Path.Combine( targetDir, fileName );
 
-            if ( File.Exists( target ) )
+            if ( filePath != target )
             {
-               File.Delete( target );
+               if ( File.Exists( target ) )
+               {
+                  File.Delete( target );
+               }
+
+               File.Copy( filePath, target );
             }
 
-            File.Copy( filePath, target );
             newPath = target;
             return true;
          }
@@ -57,12 +65,16 @@ namespace ZemotoCommon.Utils
             var dir = Path.GetDirectoryName( filePath );
             var newFilePath = Path.Combine( dir, newName ) + Path.GetExtension( filePath );
 
-            if ( File.Exists( newFilePath ) )
+            if ( filePath != newFilePath )
             {
-               File.Delete( newFilePath );
-            }
+               if ( File.Exists( newFilePath ) )
+               {
+                  File.Delete( newFilePath );
+               }
 
-            File.Move( filePath, newFilePath );
+               File.Move( filePath, newFilePath );
+            }
+            
             newPath = newFilePath;
             return true;
          }
