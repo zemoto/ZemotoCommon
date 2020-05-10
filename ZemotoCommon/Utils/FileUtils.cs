@@ -2,7 +2,7 @@
 
 namespace ZemotoCommon.Utils
 {
-   public static class PathUtils
+   public static class FileUtils
    {
       public static bool MoveFileToFolder( string filePath, string targetDir, out string newPath )
       {

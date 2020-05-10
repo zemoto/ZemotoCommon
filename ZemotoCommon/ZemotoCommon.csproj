@@ -52,7 +52,7 @@
     <Compile Include="UI\ViewModelBase.cs" />
     <Compile Include="Utils\ChildProcessWatcher.cs" />
     <Compile Include="Utils\ExtensionMethods.cs" />
-    <Compile Include="Utils\PathUtils.cs" />
+    <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\ProcessCpuMonitor.cs" />
     <Compile Include="Utils\UtilityMethods.cs" />
   </ItemGroup>
