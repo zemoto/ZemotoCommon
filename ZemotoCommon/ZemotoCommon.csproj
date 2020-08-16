@@ -51,6 +51,8 @@
     <Compile Include="UI\RelayCommand.cs" />
     <Compile Include="UI\ViewModelBase.cs" />
     <Compile Include="Utils\ChildProcessWatcher.cs" />
+    <Compile Include="Utils\Comparers.cs" />
+    <Compile Include="Utils\DeepCopy.cs" />
     <Compile Include="Utils\ExtensionMethods.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\ProcessCpuMonitor.cs" />
