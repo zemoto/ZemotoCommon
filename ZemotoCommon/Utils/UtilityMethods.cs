@@ -23,5 +23,10 @@ namespace ZemotoCommon.Utils
             Directory.CreateDirectory( dirPath );
          }
       }
+
+      public static double MapNumberToRange( double value, double oldMin, double oldMax, double newMin, double newMax )
+      {
+         return ( ( value - oldMin ) / ( oldMax - oldMin ) * ( newMax - newMin ) ) + newMin;
+      }
    }
 }
