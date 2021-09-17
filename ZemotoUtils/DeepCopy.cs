@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace ZemotoCommon.Utils
+namespace ZemotoUtils
 {
    public static class DeepCopy
    {

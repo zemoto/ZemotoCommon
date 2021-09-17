@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace ZemotoCommon.UI
+namespace ZemotoUI
 {
    public sealed class IntMinMaxBinding : Binding
    {

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace ZemotoCommon.Utils
+namespace ZemotoUtils
 {
    public static class FileUtils
    {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ZemotoCommon.UI
+namespace ZemotoUI
 {
    public abstract class ViewModelBase : INotifyPropertyChanged
    {

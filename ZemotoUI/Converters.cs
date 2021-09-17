@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 
-namespace ZemotoCommon.UI
+namespace ZemotoUI
 {
    public sealed class EqualityToVisibilityConverter : IValueConverter
    {

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // ReSharper disable BuiltInTypeReferenceStyle
 // ReSharper disable InconsistentNaming
 
-namespace ZemotoCommon.Utils
+namespace ZemotoUtils
 {
    // This class creates a "job" and allows the rest of the app to add child processes to it.
    // When the job goes out of scope (program crashes, closes, exits, etc), all added child
