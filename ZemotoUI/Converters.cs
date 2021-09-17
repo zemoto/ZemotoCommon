@@ -13,7 +13,7 @@ namespace ZemotoUI
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
       {
          var equalityFunction = value == null ? new Func<object, bool>( x => x == null ) : value.Equals;
-         return Invert ? equalityFunction( parameter ) ? Visibility.Collapsed : Visibility.Visible 
+         return Invert ? equalityFunction( parameter ) ? Visibility.Collapsed : Visibility.Visible
                        : equalityFunction( parameter ) ? Visibility.Visible : Visibility.Collapsed;
       }
 

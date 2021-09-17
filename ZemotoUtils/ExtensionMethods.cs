@@ -21,7 +21,7 @@ namespace ZemotoUtils
 
       public static T GetAttribute<T>( this Enum enumValue ) where T : Attribute
       {
-         var enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() ).First();
+         var enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() )[0];
          return GetAttribute<T>( enumValueInfo );
       }
 
@@ -33,7 +33,7 @@ namespace ZemotoUtils
 
       public static IEnumerable<T> GetAttributes<T>( this Enum enumValue ) where T : Attribute
       {
-         var enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() ).First();
+         var enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() )[0];
          return GetAttributes<T>( enumValueInfo );
       }
 
@@ -59,8 +59,8 @@ namespace ZemotoUtils
 
       internal sealed class ArrayTraverse
       {
-         public int[] Position { get; private set; }
-         private int[] _maxLengths;
+         public int[] Position { get; }
+         private readonly int[] _maxLengths;
 
          public ArrayTraverse( Array array )
          {

@@ -27,7 +27,7 @@ namespace ZemotoUI
          }
       }
 
-      public IntMinMaxBinding( string path, int min, int max ) 
+      public IntMinMaxBinding( string path, int min, int max )
          : base( path )
       {
          ValidationRules.Add( new IntMinMaxValidationRule( min, max ) );
@@ -58,7 +58,7 @@ namespace ZemotoUI
          }
       }
 
-      public DoubleMinMaxBinding( string path, double min, double max ) 
+      public DoubleMinMaxBinding( string path, double min, double max )
          : base( path )
       {
          ValidationRules.Add( new DoubleMinMaxValidationRule( min, max ) );

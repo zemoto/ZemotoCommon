@@ -20,7 +20,7 @@ namespace ZemotoUtils
 
                File.Move( filePath, target );
             }
-            
+
             newPath = target;
             return true;
          }
@@ -74,7 +74,7 @@ namespace ZemotoUtils
 
                File.Move( filePath, newFilePath );
             }
-            
+
             newPath = newFilePath;
             return true;
          }

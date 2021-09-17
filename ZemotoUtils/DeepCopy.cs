@@ -9,15 +9,7 @@ namespace ZemotoUtils
    {
       private static readonly MethodInfo CloneMethod = typeof( object ).GetMethod( "MemberwiseClone", BindingFlags.NonPublic | BindingFlags.Instance );
 
-      private static bool IsPrimitive( Type type )
-      {
-         if ( type == typeof( string ) )
-         {
-            return true;
-         }
-
-         return type.IsValueType & type.IsPrimitive;
-      }
+      private static bool IsPrimitive( Type type ) => type == typeof( string ) || ( type.IsValueType && type.IsPrimitive );
 
       private static object InternalCopy( object originalObject, IDictionary<object, object> visited )
       {
@@ -46,7 +38,7 @@ namespace ZemotoUtils
          if ( typeToReflect.IsArray )
          {
             var arrayType = typeToReflect.GetElementType();
-            if ( IsPrimitive( arrayType ) == false )
+            if ( !IsPrimitive( arrayType ) )
             {
                Array clonedArray = (Array)cloneObject;
                clonedArray.ForEach( ( array, indices ) => array.SetValue( InternalCopy( clonedArray.GetValue( indices ), visited ), indices ) );
@@ -73,7 +65,7 @@ namespace ZemotoUtils
       {
          foreach ( FieldInfo fieldInfo in typeToReflect.GetFields( bindingFlags ) )
          {
-            if ( filter != null && filter( fieldInfo ) == false )
+            if ( filter != null && !filter( fieldInfo ) )
             {
                continue;
             }
