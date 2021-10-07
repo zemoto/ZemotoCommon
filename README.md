@@ -66,7 +66,7 @@ protected bool SetProperty<T>( ref T property, T newValue, [CallerMemberName] st
 ```
 Utility method intended to be used by the setters of the properties within `ViewModelBase`. Will set the property if it has changed, and call `INotifyPropertyChanged.OnPropertyChanged` if it has. Returns a bool indicating the property has changed or not.
 
-### RelayCommand and RelayCommand<T>
+### RelayCommand and RelayCommand<T\>
 Simple implementors of `ICommand`, with `RelayCommand<T>` allowing for a parameter to be sent to the command.
   
 ### GetEnumValuesExtension
