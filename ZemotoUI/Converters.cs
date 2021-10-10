@@ -6,6 +6,19 @@ using System.Windows.Data;
 
 namespace ZemotoUI
 {
+   public sealed class EqualityConverter : IValueConverter
+   {
+      public bool Invert { get; set; }
+
+      public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
+      {
+         var equalityFunction = value == null ? new Func<object, bool>( x => x == null ) : value.Equals;
+         return Invert ? !equalityFunction( parameter ) : equalityFunction( parameter );
+      }
+
+      public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
+   }
+
    public sealed class EqualityToVisibilityConverter : IValueConverter
    {
       public bool Invert { get; set; }
@@ -17,10 +30,7 @@ namespace ZemotoUI
                        : equalityFunction( parameter ) ? Visibility.Visible : Visibility.Collapsed;
       }
 
-      public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture )
-      {
-         throw new NotImplementedException();
-      }
+      public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
    }
 
    public sealed class MultiBoolToBoolAndConverter : IMultiValueConverter
