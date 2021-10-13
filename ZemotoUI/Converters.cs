@@ -6,6 +6,21 @@ using System.Windows.Data;
 
 namespace ZemotoUI
 {
+   public sealed class BoolVisibilityConverter : IValueConverter
+   {
+      public bool Invert { get; set; }
+
+      public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
+      {
+         var boolValue = (bool)value;
+         return Invert
+            ? boolValue ? Visibility.Collapsed : Visibility.Visible
+            : boolValue ? Visibility.Visible : Visibility.Collapsed;
+      }
+
+      public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
+   }
+
    public sealed class EqualityConverter : IValueConverter
    {
       public bool Invert { get; set; }
