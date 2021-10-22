@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FileUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ProcessCpuMonitor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScopeGuard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UtilityMethods.cs" />
   </ItemGroup>
 </Project>
