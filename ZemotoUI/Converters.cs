@@ -21,6 +21,15 @@ namespace ZemotoUI
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
    }
 
+   public sealed class BoolToObjectConverter : IValueConverter
+   {
+      public object TrueValue { get; set; }
+      public object FalseValue { get; set; }
+
+      public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) => value is bool boolValue ? boolValue ? TrueValue : FalseValue : FalseValue;
+      public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => value.Equals( TrueValue );
+   }
+
    public sealed class EqualityConverter : IValueConverter
    {
       public bool Invert { get; set; }
