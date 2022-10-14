@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace ZemotoUI
+namespace ZemotoCommon.UI
 {
    public sealed class RelayCommand : ICommand
    {

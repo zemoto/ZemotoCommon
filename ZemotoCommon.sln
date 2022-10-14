@@ -3,14 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ZemotoUtils", "ZemotoUtils\ZemotoUtils.shproj", "{B50AFE0A-263C-4FB2-8EED-291F6763FBEC}"
-EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ZemotoUI", "ZemotoUI\ZemotoUI.shproj", "{7542EB89-ECC5-4A33-B7D6-18C2DB8CA072}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ZemotoCommon", "ZemotoCommon\ZemotoCommon.shproj", "{B50AFE0A-263C-4FB2-8EED-291F6763FBEC}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		ZemotoUI\ZemotoUI.projitems*{7542eb89-ecc5-4a33-b7d6-18c2db8ca072}*SharedItemsImports = 13
-		ZemotoUtils\ZemotoUtils.projitems*{b50afe0a-263c-4fb2-8eed-291f6763fbec}*SharedItemsImports = 13
+		ZemotoCommon\ZemotoCommon.projitems*{b50afe0a-263c-4fb2-8eed-291f6763fbec}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

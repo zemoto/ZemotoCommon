@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ZemotoUtils
+namespace ZemotoCommon
 {
    public sealed class ReferenceEqualityComparer : EqualityComparer<object>
    {

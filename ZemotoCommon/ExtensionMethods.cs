@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-namespace ZemotoUtils
+namespace ZemotoCommon
 {
    public static class ExtensionMethods
    {

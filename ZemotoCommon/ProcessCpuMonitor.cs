@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace ZemotoUtils
+namespace ZemotoCommon
 {
    public sealed class ProcessCpuMonitor : IDisposable
    {

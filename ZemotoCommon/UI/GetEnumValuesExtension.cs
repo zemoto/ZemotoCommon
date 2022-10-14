@@ -3,9 +3,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Markup;
-using ZemotoUtils;
+using ZemotoCommon;
 
-namespace ZemotoUI
+namespace ZemotoCommon.UI
 {
    public sealed class BoundEnumMember
    {

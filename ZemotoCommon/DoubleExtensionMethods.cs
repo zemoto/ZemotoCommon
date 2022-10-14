@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZemotoUtils
+namespace ZemotoCommon
 {
    public static class DoubleExtensionMethods
    {

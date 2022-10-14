@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZemotoUtils
+namespace ZemotoCommon
 {
    internal sealed class ScopeGuard : IDisposable
    {

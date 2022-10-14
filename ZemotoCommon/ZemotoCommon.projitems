@@ -6,7 +6,7 @@
     <SharedGUID>b50afe0a-263c-4fb2-8eed-291f6763fbec</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>ZemotoUtils</Import_RootNamespace>
+    <Import_RootNamespace>ZemotoCommon</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ChildProcessWatcher.cs" />
@@ -17,6 +17,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)FileUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ProcessCpuMonitor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ScopeGuard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Converters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\GetEnumValuesExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\MinMaxValidationRule.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UtilityMethods.cs" />
   </ItemGroup>
 </Project>
