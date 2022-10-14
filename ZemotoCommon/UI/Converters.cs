@@ -33,11 +33,18 @@ namespace ZemotoCommon.UI
    public sealed class EqualityConverter : IValueConverter
    {
       public bool Invert { get; set; }
+      public Type ComparisonType { get; set; }
 
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
       {
+         object castedParameter = parameter;
+         if ( ComparisonType is not null )
+         {
+            castedParameter = System.Convert.ChangeType( parameter, ComparisonType );
+         }
+
          var equalityFunction = value == null ? new Func<object, bool>( x => x == null ) : value.Equals;
-         return Invert ? !equalityFunction( parameter ) : equalityFunction( parameter );
+         return Invert ? !equalityFunction( castedParameter ) : equalityFunction( castedParameter );
       }
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
