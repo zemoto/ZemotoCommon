@@ -4,9 +4,9 @@ namespace ZemotoCommon
 {
    public static class DoubleExtensionMethods
    {
-      public static bool Equals( this double first, double second )
+      public static bool IsEqualTo( this double first, double second )
       {
-         return Math.Abs( first - second ) > double.Epsilon;
+         return Math.Abs( first - second ) < double.Epsilon;
       }
 
       public static bool IsZero( this double value )
