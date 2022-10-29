@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)FileUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ProcessCpuMonitor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ScopeGuard.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SingleInstance.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Converters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\GetEnumValuesExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\MinMaxValidationRule.cs" />
