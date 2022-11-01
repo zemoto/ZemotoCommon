@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if ZEMOTOUI
+using System;
 using System.Windows.Input;
 
 namespace ZemotoCommon.UI
@@ -74,3 +75,4 @@ namespace ZemotoCommon.UI
       }
    }
 }
+#endif
