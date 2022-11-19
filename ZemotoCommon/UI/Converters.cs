@@ -74,5 +74,12 @@ namespace ZemotoCommon.UI
          throw new NotImplementedException();
       }
    }
+
+   public sealed class InvertBoolConverter : IValueConverter
+   {
+      public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) => value is bool boolValue ? !boolValue : throw new ArgumentException();
+
+      public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => value is bool boolValue ? !boolValue : throw new ArgumentException();
+   }
 }
 #endif
