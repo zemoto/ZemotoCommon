@@ -69,10 +69,7 @@ namespace ZemotoCommon.UI
    {
       public object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) => values.OfType<bool>().Aggregate( ( current, value ) => current && value );
 
-      public object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture )
-      {
-         throw new NotImplementedException();
-      }
+      public object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture ) => throw new NotImplementedException();
    }
 
    public sealed class InvertBoolConverter : IValueConverter
@@ -80,6 +77,17 @@ namespace ZemotoCommon.UI
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) => value is bool boolValue ? !boolValue : throw new ArgumentException();
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => value is bool boolValue ? !boolValue : throw new ArgumentException();
+   }
+
+   public sealed class NullVisibilityConverter : IValueConverter
+   {
+      public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
+      {
+         bool nullOrEmpty = value is string stringValue ? string.IsNullOrEmpty( stringValue ) : value is null;
+         return nullOrEmpty ? Visibility.Collapsed : Visibility.Visible;
+      }
+
+      public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
    }
 }
 #endif
