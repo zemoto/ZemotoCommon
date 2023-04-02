@@ -9,14 +9,25 @@ namespace ZemotoCommon.UI
 {
    public sealed class BoolVisibilityConverter : IValueConverter
    {
+      public bool CollapseWhenNotVisible { get; set; } = true;
       public bool Invert { get; set; }
 
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
       {
-         var boolValue = (bool)value;
-         return Invert
-            ? boolValue ? Visibility.Collapsed : Visibility.Visible
-            : boolValue ? Visibility.Visible : Visibility.Collapsed;
+         bool visible = false;
+         if ( value is bool boolValue )
+         {
+            visible = boolValue;
+         }
+
+         if ( Invert )
+         {
+            visible = !visible;
+         }
+
+         return visible
+               ? Visibility.Visible
+               : ( CollapseWhenNotVisible ? Visibility.Collapsed : Visibility.Hidden );
       }
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
