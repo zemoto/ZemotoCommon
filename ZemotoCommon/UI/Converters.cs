@@ -65,12 +65,19 @@ namespace ZemotoCommon.UI
    public sealed class EqualityToVisibilityConverter : IValueConverter
    {
       public bool Invert { get; set; }
+      public Type ComparisonType { get; set; }
 
       public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
       {
+         object castedParameter = parameter;
+         if ( ComparisonType is not null )
+         {
+            castedParameter = System.Convert.ChangeType( parameter, ComparisonType );
+         }
+
          var equalityFunction = value == null ? new Func<object, bool>( x => x == null ) : value.Equals;
-         return Invert ? equalityFunction( parameter ) ? Visibility.Collapsed : Visibility.Visible
-                       : equalityFunction( parameter ) ? Visibility.Visible : Visibility.Collapsed;
+         return Invert ? equalityFunction( castedParameter ) ? Visibility.Collapsed : Visibility.Visible
+                       : equalityFunction( castedParameter ) ? Visibility.Visible : Visibility.Collapsed;
       }
 
       public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
