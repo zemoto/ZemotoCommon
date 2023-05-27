@@ -22,6 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\GetEnumValuesExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\MinMaxValidationRule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\RelayCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\UniversalClick.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UtilityMethods.cs" />
   </ItemGroup>
