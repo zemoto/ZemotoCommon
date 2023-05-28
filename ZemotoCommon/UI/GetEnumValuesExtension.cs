@@ -4,11 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Markup;
-using ZemotoCommon;
 
 namespace ZemotoCommon.UI
 {
-   public sealed class BoundEnumMember
+	public sealed class BoundEnumMember
    {
       public BoundEnumMember( object value )
       {
