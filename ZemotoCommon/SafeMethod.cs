@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace ZemotoCommon
+namespace ZemotoCommon;
+
+internal static class SafeMethod
 {
-   internal static class SafeMethod
+   public static async Task InvokeSafely( Func<Task> action )
    {
-      public static async Task InvokeSafely( Func<Task> action )
+      try
       {
-         try
-         {
-            await action();
-         }
-         catch { /*ignored*/ }
+         await action().ConfigureAwait( false );
       }
+      catch { /*ignored*/ }
    }
 }

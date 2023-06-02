@@ -4,90 +4,123 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-namespace ZemotoCommon
+namespace ZemotoCommon;
+
+public static class ExtensionMethods
 {
-   public static class ExtensionMethods
+   public static void StartAsChildProcess( this Process process )
    {
-      public static void StartAsChildProcess( this Process process )
+      if ( process is null )
       {
-         process.Start();
-         ChildProcessWatcher.AddProcess( process );
+         throw new ArgumentNullException( nameof( process ) );
       }
 
-      public static void ForEach<T>( this IEnumerable<T> collection, Action<T> action )
+      process.Start();
+      ChildProcessWatcher.AddProcess( process );
+   }
+
+   public static void ForEach<T>( this IEnumerable<T> collection, Action<T> action )
+   {
+      collection.ToList().ForEach( action );
+   }
+
+   public static T GetAttribute<T>( this Enum enumValue ) where T : Attribute
+   {
+      if ( enumValue is null )
       {
-         collection.ToList().ForEach( action );
+         throw new ArgumentNullException( nameof( enumValue ) );
       }
 
-      public static T GetAttribute<T>( this Enum enumValue ) where T : Attribute
+      var enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() )[0];
+      return GetAttribute<T>( enumValueInfo );
+   }
+
+   public static T GetAttribute<T>( this ICustomAttributeProvider property ) where T : Attribute
+   {
+      if ( property is null )
       {
-         var enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() )[0];
-         return GetAttribute<T>( enumValueInfo );
+         throw new ArgumentNullException( nameof( property ) );
       }
 
-      public static T GetAttribute<T>( this ICustomAttributeProvider property ) where T : Attribute
+      var attribute = property.GetCustomAttributes( typeof( T ), false ).FirstOrDefault();
+      return attribute as T;
+   }
+
+   public static IEnumerable<T> GetAttributes<T>( this Enum enumValue ) where T : Attribute
+   {
+      if ( enumValue is null )
       {
-         var attribute = property.GetCustomAttributes( typeof( T ), false ).FirstOrDefault();
-         return attribute as T;
+         throw new ArgumentNullException( nameof( enumValue ) );
       }
 
-      public static IEnumerable<T> GetAttributes<T>( this Enum enumValue ) where T : Attribute
+      var enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() )[0];
+      return GetAttributes<T>( enumValueInfo );
+   }
+
+   public static IEnumerable<T> GetAttributes<T>( this ICustomAttributeProvider property ) where T : Attribute
+   {
+      if ( property is null )
       {
-         var enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() )[0];
-         return GetAttributes<T>( enumValueInfo );
+         throw new ArgumentNullException( nameof( property ) );
       }
 
-      public static IEnumerable<T> GetAttributes<T>( this ICustomAttributeProvider property ) where T : Attribute
+      return property.GetCustomAttributes( typeof( T ), false ).Cast<T>();
+   }
+
+   public static void ForEach( this Array array, Action<Array, int[]> action )
+   {
+      if ( array is null )
       {
-         return property.GetCustomAttributes( typeof( T ), false ).Cast<T>();
+         throw new ArgumentNullException( nameof( array ) );
+      }
+      if ( action is null )
+      {
+         throw new ArgumentNullException( nameof( action ) );
       }
 
-      public static void ForEach( this Array array, Action<Array, int[]> action )
+      if ( array.LongLength == 0 )
       {
-         if ( array.LongLength == 0 )
+         return;
+      }
+
+      var walker = new ArrayTraverse( array );
+      do
+      {
+         action( array, walker.Position );
+      }
+      while ( walker.Step() );
+   }
+
+   internal sealed class ArrayTraverse
+   {
+      public int[] Position { get; }
+      private readonly int[] _maxLengths;
+
+      public ArrayTraverse( Array array )
+      {
+         _maxLengths = new int[array.Rank];
+         for ( int i = 0; i < array.Rank; ++i )
          {
-            return;
+            _maxLengths[i] = array.GetLength( i ) - 1;
          }
-
-         var walker = new ArrayTraverse( array );
-         do
-         {
-            action( array, walker.Position );
-         }
-         while ( walker.Step() );
+         Position = new int[array.Rank];
       }
 
-      internal sealed class ArrayTraverse
+      public bool Step()
       {
-         public int[] Position { get; }
-         private readonly int[] _maxLengths;
-
-         public ArrayTraverse( Array array )
+         for ( int i = 0; i < Position.Length; ++i )
          {
-            _maxLengths = new int[array.Rank];
-            for ( int i = 0; i < array.Rank; ++i )
+            if ( Position[i] < _maxLengths[i] )
             {
-               _maxLengths[i] = array.GetLength( i ) - 1;
-            }
-            Position = new int[array.Rank];
-         }
-
-         public bool Step()
-         {
-            for ( int i = 0; i < Position.Length; ++i )
-            {
-               if ( Position[i] < _maxLengths[i] )
+               Position[i]++;
+               for ( int j = 0; j < i; j++ )
                {
-                  Position[i]++;
-                  for ( int j = 0; j < i; j++ )
-                  {
-                     Position[j] = 0;
-                  }
-                  return true;
+                  Position[j] = 0;
                }
+               return true;
             }
-            return false;
          }
+         return false;
       }
    }
 }

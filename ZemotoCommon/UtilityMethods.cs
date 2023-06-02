@@ -1,32 +1,31 @@
 ﻿using System.IO;
 
-namespace ZemotoCommon
+namespace ZemotoCommon;
+
+public static class UtilityMethods
 {
-   public static class UtilityMethods
+   public static void SafeDeleteDirectory( string dirPath )
    {
-      public static void SafeDeleteDirectory( string dirPath )
+      if ( Directory.Exists( dirPath ) )
       {
-         if ( Directory.Exists( dirPath ) )
+         try
          {
-            try
-            {
-               Directory.Delete( dirPath, true );
-            }
-            catch { /*ignored*/ }
+            Directory.Delete( dirPath, true );
          }
+         catch { /*ignored*/ }
       }
+   }
 
-      public static void CreateDirectory( string dirPath )
+   public static void CreateDirectory( string dirPath )
+   {
+      if ( !Directory.Exists( dirPath ) )
       {
-         if ( !Directory.Exists( dirPath ) )
-         {
-            Directory.CreateDirectory( dirPath );
-         }
+         Directory.CreateDirectory( dirPath );
       }
+   }
 
-      public static double MapNumberToRange( double value, double oldMin, double oldMax, double newMin, double newMax )
-      {
-         return ( ( value - oldMin ) / ( oldMax - oldMin ) * ( newMax - newMin ) ) + newMin;
-      }
+   public static double MapNumberToRange( double value, double oldMin, double oldMax, double newMin, double newMax )
+   {
+      return ( ( value - oldMin ) / ( oldMax - oldMin ) * ( newMax - newMin ) ) + newMin;
    }
 }

@@ -2,40 +2,71 @@
 using System.IO.Pipes;
 using System.Threading;
 
-namespace ZemotoCommon
+namespace ZemotoCommon;
+
+internal sealed class SingleInstance : IDisposable
 {
-   internal sealed class SingleInstance
+   public event EventHandler PingedByOtherProcess;
+
+   private readonly Mutex _instanceMutex;
+   private readonly string _instanceName;
+   private NamedPipeServerStream _server;
+
+   public SingleInstance( string instanceName )
    {
-      public event EventHandler PingedByOtherProcess;
+      _instanceMutex = new Mutex( true, instanceName );
+      _instanceName = instanceName;
+   }
 
-      private readonly Mutex _instanceMutex;
-      private readonly string _instanceName;
+   public void Dispose()
+   {
+      _instanceMutex.Dispose();
 
-      public SingleInstance( string instanceName )
+      if ( _server != null )
       {
-         _instanceMutex = new Mutex( true, instanceName );
-         _instanceName = instanceName;
+         _server.Dispose();
+      }
+   }
+
+   public bool Claim()
+   {
+      if ( !_instanceMutex.WaitOne( TimeSpan.Zero ) )
+      {
+         PingSingleInstance();
+         return false;
       }
 
-      public bool Claim()
-      {
-         if ( !_instanceMutex.WaitOne( TimeSpan.Zero ) )
-         {
-            PingSingleInstance();
-            return false;
-         }
+      ListenForOtherProcesses();
+      return true;
+   }
 
-         ListenForOtherProcesses();
-         return true;
+   private void PingSingleInstance()
+   {
+      // The act of connecting indicates to the single instance that another process tried to run
+      using var client = new NamedPipeClientStream( ".", _instanceName, PipeDirection.Out );
+      try
+      {
+         client.Connect( 0 );
       }
-
-      private void PingSingleInstance()
+      catch
       {
-         // The act of connecting indicates to the single instance that another process tried to run
-         using var client = new NamedPipeClientStream( ".", _instanceName, PipeDirection.Out );
+         // ignore
+      }
+   }
+
+   private void ListenForOtherProcesses()
+   {
+      _server = new NamedPipeServerStream( _instanceName, PipeDirection.In, 1, PipeTransmissionMode.Message, PipeOptions.Asynchronous );
+      _ = _server.BeginWaitForConnection( OnPipeConnection, _server );
+   }
+
+   private void OnPipeConnection( IAsyncResult ar )
+   {
+      using ( var server = (NamedPipeServerStream)ar.AsyncState )
+      {
          try
          {
-            client.Connect( 0 );
+            server.EndWaitForConnection( ar );
          }
          catch
          {
@@ -43,29 +74,8 @@ namespace ZemotoCommon
          }
       }
 
-      private void ListenForOtherProcesses()
-      {
-         var server = new NamedPipeServerStream( _instanceName, PipeDirection.In, 1, PipeTransmissionMode.Message, PipeOptions.Asynchronous );
-         _ = server.BeginWaitForConnection( OnPipeConnection, server );
-      }
+      PingedByOtherProcess?.Invoke( null, EventArgs.Empty );
 
-      private void OnPipeConnection( IAsyncResult ar )
-      {
-         using ( var server = (NamedPipeServerStream)ar.AsyncState )
-         {
-            try
-            {
-               server.EndWaitForConnection( ar );
-            }
-            catch
-            {
-               // ignore
-            }
-         }
-
-         PingedByOtherProcess?.Invoke( null, EventArgs.Empty );
-
-         ListenForOtherProcesses();
-      }
+      ListenForOtherProcesses();
    }
 }

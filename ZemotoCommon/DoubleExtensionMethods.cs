@@ -1,17 +1,16 @@
 ﻿using System;
 
-namespace ZemotoCommon
-{
-   public static class DoubleExtensionMethods
-   {
-      public static bool IsEqualTo( this double first, double second )
-      {
-         return Math.Abs( first - second ) < double.Epsilon;
-      }
+namespace ZemotoCommon;
 
-      public static bool IsZero( this double value )
-      {
-         return Math.Abs( value ) < double.Epsilon;
-      }
+public static class DoubleExtensionMethods
+{
+   public static bool IsEqualTo( this double first, double second )
+   {
+      return Math.Abs( first - second ) < double.Epsilon;
+   }
+
+   public static bool IsZero( this double value )
+   {
+      return Math.Abs( value ) < double.Epsilon;
    }
 }
