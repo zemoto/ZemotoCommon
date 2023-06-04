@@ -10,22 +10,20 @@ internal sealed class SingleInstance : IDisposable
 
    private readonly Mutex _instanceMutex;
    private readonly string _instanceName;
+   private readonly bool _listenForOtherInstances;
    private NamedPipeServerStream _server;
 
-   public SingleInstance( string instanceName )
+   public SingleInstance( string instanceName, bool listenForOtherInstances )
    {
       _instanceMutex = new Mutex( true, instanceName );
       _instanceName = instanceName;
+      _listenForOtherInstances = listenForOtherInstances;
    }
 
    public void Dispose()
    {
       _instanceMutex.Dispose();
-
-      if ( _server != null )
-      {
-         _server.Dispose();
-      }
+      _server?.Dispose();
    }
 
    public bool Claim()
@@ -36,7 +34,10 @@ internal sealed class SingleInstance : IDisposable
          return false;
       }
 
-      ListenForOtherProcesses();
+      if ( _listenForOtherInstances )
+      {
+         ListenForOtherProcesses();
+      }
       return true;
    }
 
