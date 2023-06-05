@@ -7,7 +7,7 @@ using System.Windows.Data;
 
 namespace ZemotoCommon.UI;
 
-public sealed class BoolVisibilityConverter : IValueConverter
+internal sealed class BoolVisibilityConverter : IValueConverter
 {
    public bool CollapseWhenNotVisible { get; set; } = true;
    public bool Invert { get; set; }
@@ -33,7 +33,7 @@ public sealed class BoolVisibilityConverter : IValueConverter
    public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
 }
 
-public sealed class BoolToObjectConverter : IValueConverter
+internal sealed class BoolToObjectConverter : IValueConverter
 {
    public object TrueValue { get; set; }
    public object FalseValue { get; set; }
@@ -42,7 +42,7 @@ public sealed class BoolToObjectConverter : IValueConverter
    public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => value?.Equals( TrueValue ) ?? false;
 }
 
-public sealed class EqualityConverter : IValueConverter
+internal sealed class EqualityConverter : IValueConverter
 {
    public bool Invert { get; set; }
    public Type ComparisonType { get; set; }
@@ -62,7 +62,7 @@ public sealed class EqualityConverter : IValueConverter
    public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
 }
 
-public sealed class EqualityToVisibilityConverter : IValueConverter
+internal sealed class EqualityToVisibilityConverter : IValueConverter
 {
    public bool Invert { get; set; }
    public Type ComparisonType { get; set; }
@@ -83,7 +83,7 @@ public sealed class EqualityToVisibilityConverter : IValueConverter
    public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
 }
 
-public sealed class MultiBoolToBoolAndConverter : IMultiValueConverter
+internal sealed class MultiBoolToBoolAndConverter : IMultiValueConverter
 {
    public static MultiBoolToBoolAndConverter Instance { get; } = new MultiBoolToBoolAndConverter();
    private MultiBoolToBoolAndConverter()
@@ -95,7 +95,7 @@ public sealed class MultiBoolToBoolAndConverter : IMultiValueConverter
    public object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture ) => throw new NotImplementedException();
 }
 
-public sealed class InvertBoolConverter : IValueConverter
+internal sealed class InvertBoolConverter : IValueConverter
 {
    public static InvertBoolConverter Instance { get; } = new InvertBoolConverter();
    private InvertBoolConverter()
@@ -107,7 +107,7 @@ public sealed class InvertBoolConverter : IValueConverter
    public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => value is bool boolValue ? !boolValue : throw new ArgumentException( "Argument is not a bool", nameof( value ) );
 }
 
-public sealed class NullVisibilityConverter : IValueConverter
+internal sealed class NullVisibilityConverter : IValueConverter
 {
    public static NullVisibilityConverter Instance { get; } = new NullVisibilityConverter();
    private NullVisibilityConverter()
