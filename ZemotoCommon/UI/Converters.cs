@@ -42,42 +42,37 @@ internal sealed class BoolToObjectConverter : IValueConverter
    public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => value?.Equals( TrueValue ) ?? false;
 }
 
-internal sealed class EqualityConverter : IValueConverter
+internal abstract class EqualityLogic
 {
    public bool Invert { get; set; }
-   public Type ComparisonType { get; set; }
 
-   public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
+   protected bool GetEqualityValue( object value, object parameter, CultureInfo culture )
    {
-      object castedParameter = parameter;
-      if ( ComparisonType is not null )
+      var sourceType = value.GetType();
+      var castedParameter = parameter;
+      if ( sourceType != typeof( object ) )
       {
-         castedParameter = System.Convert.ChangeType( parameter, ComparisonType, culture );
+         castedParameter = Convert.ChangeType( parameter, sourceType, culture );
       }
 
       var equalityFunction = value == null ? new Func<object, bool>( x => x == null ) : value.Equals;
       return Invert ? !equalityFunction( castedParameter ) : equalityFunction( castedParameter );
    }
+}
+
+internal sealed class EqualityConverter : EqualityLogic, IValueConverter
+{
+   public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) => GetEqualityValue( value, parameter, culture );
 
    public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
 }
 
-internal sealed class EqualityToVisibilityConverter : IValueConverter
+internal sealed class EqualityToVisibilityConverter : EqualityLogic, IValueConverter
 {
-   public bool Invert { get; set; }
-   public Type ComparisonType { get; set; }
-
    public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
    {
-      object castedParameter = parameter;
-      if ( ComparisonType is not null )
-      {
-         castedParameter = System.Convert.ChangeType( parameter, ComparisonType, culture );
-      }
-
-      var equalityFunction = value == null ? new Func<object, bool>( x => x == null ) : value.Equals;
-      return Invert ? equalityFunction( castedParameter ) ? Visibility.Collapsed : Visibility.Visible
-                    : equalityFunction( castedParameter ) ? Visibility.Visible : Visibility.Collapsed;
+      bool equalityValue = GetEqualityValue( value, parameter, culture );
+      return equalityValue ? Visibility.Visible : Visibility.Collapsed;
    }
 
    public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
