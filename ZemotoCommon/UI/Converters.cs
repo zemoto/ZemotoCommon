@@ -85,6 +85,11 @@ public sealed class EqualityToVisibilityConverter : IValueConverter
 
 public sealed class MultiBoolToBoolAndConverter : IMultiValueConverter
 {
+   public static MultiBoolToBoolAndConverter Instance { get; } = new MultiBoolToBoolAndConverter();
+   private MultiBoolToBoolAndConverter()
+   {
+   }
+
    public object Convert( object[] values, Type targetType, object parameter, CultureInfo culture ) => values.OfType<bool>().Aggregate( ( current, value ) => current && value );
 
    public object[] ConvertBack( object value, Type[] targetTypes, object parameter, CultureInfo culture ) => throw new NotImplementedException();
@@ -92,6 +97,11 @@ public sealed class MultiBoolToBoolAndConverter : IMultiValueConverter
 
 public sealed class InvertBoolConverter : IValueConverter
 {
+   public static InvertBoolConverter Instance { get; } = new InvertBoolConverter();
+   private InvertBoolConverter()
+   {
+   }
+
    public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) => value is bool boolValue ? !boolValue : throw new ArgumentException( "Argument is not a bool", nameof( value ) );
 
    public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => value is bool boolValue ? !boolValue : throw new ArgumentException( "Argument is not a bool", nameof( value ) );
@@ -99,6 +109,11 @@ public sealed class InvertBoolConverter : IValueConverter
 
 public sealed class NullVisibilityConverter : IValueConverter
 {
+   public static NullVisibilityConverter Instance { get; } = new NullVisibilityConverter();
+   private NullVisibilityConverter()
+   {
+   }
+
    public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
    {
       bool nullOrEmpty = value is string stringValue ? string.IsNullOrEmpty( stringValue ) : value is null;
