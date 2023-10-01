@@ -1,5 +1,6 @@
 ﻿#if ZEMOTOUI
 using System;
+using System.Globalization;
 using System.Windows.Input;
 
 namespace ZemotoCommon.UI;
@@ -46,14 +47,14 @@ public sealed class RelayCommand<T> : ICommand
       {
          return true;
       }
-      if ( parameter is T castedParam )
+
+      var castedParameter = parameter;
+      if ( typeof( T ) != typeof( object ) )
       {
-         return _canExecute( castedParam );
+         castedParameter = Convert.ChangeType( parameter, typeof( T ), CultureInfo.InvariantCulture );
       }
-      else
-      {
-         throw new ArgumentException( "Invalid command parameter", nameof( parameter ) );
-      }
+
+      return _canExecute( (T)castedParameter );
    }
 
    public event EventHandler CanExecuteChanged
@@ -64,14 +65,13 @@ public sealed class RelayCommand<T> : ICommand
 
    public void Execute( object parameter )
    {
-      if ( parameter is T castedParam )
+      var castedParameter = parameter;
+      if ( typeof( T ) != typeof( object ) )
       {
-         _execute( castedParam );
+         castedParameter = Convert.ChangeType( parameter, typeof( T ), CultureInfo.InvariantCulture );
       }
-      else
-      {
-         throw new ArgumentException( "Invalid command parameter", nameof( parameter ) );
-      }
+
+      _execute( (T)castedParameter );
    }
 }
 #endif
