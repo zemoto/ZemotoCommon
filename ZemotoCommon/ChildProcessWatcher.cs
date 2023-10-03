@@ -9,7 +9,7 @@ namespace ZemotoCommon;
 // processes are closed with it.
 public static class ChildProcessWatcher
 {
-   private static readonly IntPtr _handle = CreateJobObject( IntPtr.Zero, $"EncoderChildProcessTracker{Process.GetCurrentProcess().Id}" );
+   private static readonly IntPtr _handle = CreateJobObject( IntPtr.Zero, $"EncoderChildProcessTracker{Environment.ProcessId}" );
    private static bool _initialized;
 
    public static void Initialize()
