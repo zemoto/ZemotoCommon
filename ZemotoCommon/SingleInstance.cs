@@ -13,6 +13,8 @@ internal sealed class SingleInstance : IDisposable
    private readonly bool _listenForOtherInstances;
    private NamedPipeServerStream _server;
 
+   private bool _disposed;
+
    public SingleInstance( string instanceName, bool listenForOtherInstances )
    {
       _instanceMutex = new Mutex( true, instanceName );
@@ -22,6 +24,7 @@ internal sealed class SingleInstance : IDisposable
 
    public void Dispose()
    {
+      _disposed = true;
       _instanceMutex.Dispose();
       _server?.Dispose();
    }
@@ -75,8 +78,10 @@ internal sealed class SingleInstance : IDisposable
          }
       }
 
-      PingedByOtherProcess?.Invoke( null, EventArgs.Empty );
-
-      ListenForOtherProcesses();
+      if ( !_disposed )
+      {
+         PingedByOtherProcess?.Invoke( null, EventArgs.Empty );
+         ListenForOtherProcesses();
+      }
    }
 }
