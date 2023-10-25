@@ -42,11 +42,9 @@ internal sealed class BoolToObjectConverter : IValueConverter
    public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => value?.Equals( TrueValue ) ?? false;
 }
 
-internal abstract class EqualityLogic
+internal static class EqualityLogic
 {
-   public bool Invert { get; set; }
-
-   protected bool GetEqualityValue( object value, object parameter, CultureInfo culture )
+   public static bool GetEqualityValue( object value, object parameter, bool invert, CultureInfo culture )
    {
       var sourceType = value.GetType();
       var castedParameter = parameter;
@@ -56,23 +54,28 @@ internal abstract class EqualityLogic
       }
 
       var equalityFunction = value == null ? new Func<object, bool>( x => x == null ) : value.Equals;
-      return Invert ? !equalityFunction( castedParameter ) : equalityFunction( castedParameter );
+      return invert ? !equalityFunction( castedParameter ) : equalityFunction( castedParameter );
    }
 }
 
-internal sealed class EqualityConverter : EqualityLogic, IValueConverter
+internal sealed class EqualityConverter : IValueConverter
 {
-   public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) => GetEqualityValue( value, parameter, culture );
+   public bool Invert { get; set; }
+
+   public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) => EqualityLogic.GetEqualityValue( value, parameter, Invert, culture );
 
    public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
 }
 
-internal sealed class EqualityToVisibilityConverter : EqualityLogic, IValueConverter
+internal sealed class EqualityToObjectConverter : IValueConverter
 {
+   public object EqualValue { get; set; }
+   public object NotEqualValue { get; set; }
+
    public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
    {
-      bool equalityValue = GetEqualityValue( value, parameter, culture );
-      return equalityValue ? Visibility.Visible : Visibility.Collapsed;
+      bool equalityValue = EqualityLogic.GetEqualityValue( value, parameter, false, culture );
+      return equalityValue ? EqualValue : NotEqualValue;
    }
 
    public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
