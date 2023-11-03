@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)SafeMethod.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ScopeGuard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SingleInstance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\GroupedExpander.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\OutlinedTextBlock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Converters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\GetEnumValuesExtension.cs" />
@@ -26,8 +27,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\UniversalClick.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UtilityMethods.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)UI\Controls\" />
   </ItemGroup>
 </Project>
