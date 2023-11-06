@@ -7,7 +7,7 @@ namespace ZemotoCommon;
 // This class creates a "job" and allows the rest of the app to add child processes to it.
 // When the job goes out of scope (program crashes, closes, exits, etc), all added child
 // processes are closed with it.
-public static class ChildProcessWatcher
+internal static class ChildProcessWatcher
 {
    private static readonly IntPtr _handle = CreateJobObject( IntPtr.Zero, $"EncoderChildProcessTracker{Environment.ProcessId}" );
    private static bool _initialized;

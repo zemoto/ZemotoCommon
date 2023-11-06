@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace ZemotoCommon.UI;
 
-public sealed class IntMinMaxBinding : Binding
+internal sealed class IntMinMaxBinding : Binding
 {
    private sealed class IntMinMaxValidationRule : ValidationRule
    {
@@ -36,7 +36,7 @@ public sealed class IntMinMaxBinding : Binding
    }
 }
 
-public sealed class DoubleMinMaxBinding : Binding
+internal sealed class DoubleMinMaxBinding : Binding
 {
    private sealed class DoubleMinMaxValidationRule : ValidationRule
    {

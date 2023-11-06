@@ -2,7 +2,7 @@
 
 namespace ZemotoCommon;
 
-public sealed class ReferenceEqualityComparer : EqualityComparer<object>
+internal sealed class ReferenceEqualityComparer : EqualityComparer<object>
 {
    public override bool Equals( object x, object y )
    {

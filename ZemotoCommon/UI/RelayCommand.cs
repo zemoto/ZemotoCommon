@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace ZemotoCommon.UI;
 
-public sealed class RelayCommand : ICommand
+internal sealed class RelayCommand : ICommand
 {
    private readonly Action _execute;
    private readonly Func<bool> _canExecute;
@@ -30,7 +30,7 @@ public sealed class RelayCommand : ICommand
    }
 }
 
-public sealed class RelayCommand<T> : ICommand
+internal sealed class RelayCommand<T> : ICommand
 {
    private readonly Action<T> _execute;
    private readonly Func<T, bool> _canExecute;

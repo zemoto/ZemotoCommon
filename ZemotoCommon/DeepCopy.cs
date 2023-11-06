@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace ZemotoCommon;
 
-public static class DeepCopy
+internal static class DeepCopy
 {
    private static readonly MethodInfo CloneMethod = typeof( object ).GetMethod( "MemberwiseClone", BindingFlags.NonPublic | BindingFlags.Instance );
 

@@ -7,7 +7,7 @@ using System.Windows.Markup;
 
 namespace ZemotoCommon.UI;
 
-public sealed class BoundEnumMember
+internal sealed class BoundEnumMember
 {
    public BoundEnumMember( object value )
    {
@@ -38,7 +38,7 @@ public sealed class BoundEnumMember
    }
 }
 
-public sealed class GetEnumValuesExtension : MarkupExtension
+internal sealed class GetEnumValuesExtension : MarkupExtension
 {
    private readonly Type _type;
    public GetEnumValuesExtension( Type type )

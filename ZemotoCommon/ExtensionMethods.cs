@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace ZemotoCommon;
 
-public static class ExtensionMethods
+internal static class ExtensionMethods
 {
    public static void StartAsChildProcess( this Process process )
    {

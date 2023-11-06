@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace ZemotoCommon;
 
-public static class FileUtils
+internal static class FileUtils
 {
    public static bool MoveFileToFolder( string filePath, string targetDir, out string newPath )
    {

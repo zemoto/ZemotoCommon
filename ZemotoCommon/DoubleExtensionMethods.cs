@@ -2,7 +2,7 @@
 
 namespace ZemotoCommon;
 
-public static class DoubleExtensionMethods
+internal static class DoubleExtensionMethods
 {
    public static bool IsEqualTo( this double first, double second )
    {
