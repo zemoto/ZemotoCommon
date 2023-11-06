@@ -129,4 +129,24 @@ public static class FileUtils
 
       return $@"..\{string.Join( @"\", parts.TakeLast( 2 ) )}";
    }
+
+   public static void SafeDeleteDirectory( string dirPath )
+   {
+      if ( Directory.Exists( dirPath ) )
+      {
+         try
+         {
+            Directory.Delete( dirPath, true );
+         }
+         catch { /*ignored*/ }
+      }
+   }
+
+   public static void CreateDirectory( string dirPath )
+   {
+      if ( !Directory.Exists( dirPath ) )
+      {
+         Directory.CreateDirectory( dirPath );
+      }
+   }
 }

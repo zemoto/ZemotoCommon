@@ -13,4 +13,9 @@ public static class DoubleExtensionMethods
    {
       return Math.Abs( value ) < double.Epsilon;
    }
+
+   public static double MapNumberToRange( this double value, double oldMin, double oldMax, double newMin, double newMax )
+   {
+      return ( ( value - oldMin ) / ( oldMax - oldMin ) * ( newMax - newMin ) ) + newMin;
+   }
 }
