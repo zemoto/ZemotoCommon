@@ -9,6 +9,7 @@
     <Import_RootNamespace>ZemotoCommon</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CancelTokenProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ChildProcessWatcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Comparers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeepCopy.cs" />
