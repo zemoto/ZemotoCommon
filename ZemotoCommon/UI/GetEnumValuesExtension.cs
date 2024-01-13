@@ -11,10 +11,7 @@ internal sealed class BoundEnumMember
 {
    public BoundEnumMember( object value )
    {
-      if ( value is null )
-      {
-         throw new ArgumentNullException( nameof( value ) );
-      }
+      ArgumentNullException.ThrowIfNull( value );
 
       Display = GetDescription( value );
       Value = value;

@@ -109,7 +109,7 @@ internal sealed class OutlinedTextBlock : FrameworkElement
      nameof( TextDecorations ),
      typeof( TextDecorationCollection ),
      typeof( OutlinedTextBlock ),
-     new FrameworkPropertyMetadata( OnFormattedTextUpdated ) );
+     new FrameworkPropertyMetadata( new TextDecorationCollection(), OnFormattedTextUpdated ) );
    public TextDecorationCollection TextDecorations
    {
       get => (TextDecorationCollection)GetValue( TextDecorationsProperty );
@@ -142,11 +142,7 @@ internal sealed class OutlinedTextBlock : FrameworkElement
    private Geometry _textGeometry;
    private Pen _pen;
 
-   public OutlinedTextBlock()
-   {
-      UpdatePen();
-      TextDecorations = new TextDecorationCollection();
-   }
+   public OutlinedTextBlock() => UpdatePen();
 
    private void UpdatePen()
    {

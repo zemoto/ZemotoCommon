@@ -43,10 +43,7 @@ internal static class ChildProcessWatcher
 
    public static bool AddProcess( Process process )
    {
-      if ( process is null )
-      {
-         throw new ArgumentNullException( nameof( process ) );
-      }
+      ArgumentNullException.ThrowIfNull( process );
 
       return AssignProcessToJobObject( _handle, process.Handle );
    }

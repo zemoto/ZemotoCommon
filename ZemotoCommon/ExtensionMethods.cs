@@ -10,10 +10,7 @@ internal static class ExtensionMethods
 {
    public static void StartAsChildProcess( this Process process )
    {
-      if ( process is null )
-      {
-         throw new ArgumentNullException( nameof( process ) );
-      }
+      ArgumentNullException.ThrowIfNull( process );
 
       process.Start();
       ChildProcessWatcher.AddProcess( process );
@@ -26,10 +23,7 @@ internal static class ExtensionMethods
 
    public static T GetAttribute<T>( this Enum enumValue ) where T : Attribute
    {
-      if ( enumValue is null )
-      {
-         throw new ArgumentNullException( nameof( enumValue ) );
-      }
+      ArgumentNullException.ThrowIfNull( enumValue );
 
       var enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() )[0];
       return GetAttribute<T>( enumValueInfo );
@@ -37,10 +31,7 @@ internal static class ExtensionMethods
 
    public static T GetAttribute<T>( this ICustomAttributeProvider property ) where T : Attribute
    {
-      if ( property is null )
-      {
-         throw new ArgumentNullException( nameof( property ) );
-      }
+      ArgumentNullException.ThrowIfNull( property );
 
       var attribute = property.GetCustomAttributes( typeof( T ), false ).FirstOrDefault();
       return attribute as T;
@@ -48,10 +39,7 @@ internal static class ExtensionMethods
 
    public static IEnumerable<T> GetAttributes<T>( this Enum enumValue ) where T : Attribute
    {
-      if ( enumValue is null )
-      {
-         throw new ArgumentNullException( nameof( enumValue ) );
-      }
+      ArgumentNullException.ThrowIfNull( enumValue );
 
       var enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() )[0];
       return GetAttributes<T>( enumValueInfo );
@@ -59,24 +47,15 @@ internal static class ExtensionMethods
 
    public static IEnumerable<T> GetAttributes<T>( this ICustomAttributeProvider property ) where T : Attribute
    {
-      if ( property is null )
-      {
-         throw new ArgumentNullException( nameof( property ) );
-      }
+      ArgumentNullException.ThrowIfNull( property );
 
       return property.GetCustomAttributes( typeof( T ), false ).Cast<T>();
    }
 
    public static void ForEach( this Array array, Action<Array, int[]> action )
    {
-      if ( array is null )
-      {
-         throw new ArgumentNullException( nameof( array ) );
-      }
-      if ( action is null )
-      {
-         throw new ArgumentNullException( nameof( action ) );
-      }
+      ArgumentNullException.ThrowIfNull( array );
+      ArgumentNullException.ThrowIfNull( action );
 
       if ( array.LongLength == 0 )
       {

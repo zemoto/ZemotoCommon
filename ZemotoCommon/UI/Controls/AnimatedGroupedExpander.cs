@@ -1,9 +1,9 @@
 ﻿#if ZEMOTOUI
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Linq;
-using System;
 using System.Windows.Media.Animation;
 
 namespace ZemotoCommon.UI.Controls;
@@ -36,12 +36,12 @@ internal sealed class AnimatedGroupedExpander : Expander
 
       if ( e.NewValue is string newGroupName && !string.IsNullOrEmpty( newGroupName ) )
       {
-         if ( !ExpanderGroups.ContainsKey( newGroupName ) )
+         if ( !ExpanderGroups.TryGetValue( newGroupName, out List<AnimatedGroupedExpander> value ) )
          {
-            ExpanderGroups[newGroupName] = new List<AnimatedGroupedExpander>();
+            ExpanderGroups[newGroupName] = value = new List<AnimatedGroupedExpander>();
          }
 
-         ExpanderGroups[newGroupName].Add( expander );
+         value.Add( expander );
       }
    }
 
