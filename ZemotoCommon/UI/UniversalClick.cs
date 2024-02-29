@@ -39,7 +39,7 @@ internal static class UniversalClick
 
       if ( e.ButtonState == MouseButtonState.Pressed )
       {
-         element.CaptureMouse();
+         _ = element.CaptureMouse();
       }
    }
 

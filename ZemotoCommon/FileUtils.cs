@@ -146,7 +146,7 @@ internal static class FileUtils
    {
       if ( !Directory.Exists( dirPath ) )
       {
-         Directory.CreateDirectory( dirPath );
+         _ = Directory.CreateDirectory( dirPath );
       }
    }
 }

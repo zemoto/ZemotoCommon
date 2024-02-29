@@ -26,11 +26,11 @@ internal sealed class AnimatedGroupedExpander : Expander
       if ( e.OldValue is string oldGroupName && !string.IsNullOrEmpty( oldGroupName ) )
       {
          var group = ExpanderGroups[oldGroupName];
-         group.Remove( expander );
+         _ = group.Remove( expander );
 
          if ( group.Count == 0 )
          {
-            ExpanderGroups.Remove( oldGroupName );
+            _ = ExpanderGroups.Remove( oldGroupName );
          }
       }
 

@@ -12,8 +12,8 @@ internal static class ExtensionMethods
    {
       ArgumentNullException.ThrowIfNull( process );
 
-      process.Start();
-      ChildProcessWatcher.AddProcess( process );
+      _ = process.Start();
+      _ = ChildProcessWatcher.AddProcess( process );
    }
 
    public static void ForEach<T>( this IEnumerable<T> collection, Action<T> action )
