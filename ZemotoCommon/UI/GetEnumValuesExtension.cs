@@ -35,14 +35,8 @@ internal sealed class BoundEnumMember
    }
 }
 
-internal sealed class GetEnumValuesExtension : MarkupExtension
+internal sealed class GetEnumValuesExtension( Type type ) : MarkupExtension
 {
-   private readonly Type _type;
-   public GetEnumValuesExtension( Type type )
-   {
-      _type = type;
-   }
-
    public override object ProvideValue( IServiceProvider serviceProvider )
    {
       if ( serviceProvider?.GetService( typeof( IProvideValueTarget ) ) is IProvideValueTarget target && target.TargetObject is ComboBox box )
@@ -51,7 +45,7 @@ internal sealed class GetEnumValuesExtension : MarkupExtension
          box.DisplayMemberPath = "Display";
       }
 
-      var enumValues = Enum.GetValues( _type );
+      var enumValues = Enum.GetValues( type );
 
       return ( from object enumValue in enumValues
                select new BoundEnumMember( enumValue ) ).ToArray();

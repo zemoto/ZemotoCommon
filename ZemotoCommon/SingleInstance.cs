@@ -4,23 +4,14 @@ using System.Threading;
 
 namespace ZemotoCommon;
 
-internal sealed class SingleInstance : IDisposable
+internal sealed class SingleInstance( string instanceName, bool listenForOtherInstances ) : IDisposable
 {
    public event EventHandler PingedByOtherProcess;
 
-   private readonly Mutex _instanceMutex;
-   private readonly string _instanceName;
-   private readonly bool _listenForOtherInstances;
+   private readonly Mutex _instanceMutex = new( true, instanceName );
    private NamedPipeServerStream _server;
 
    private bool _disposed;
-
-   public SingleInstance( string instanceName, bool listenForOtherInstances )
-   {
-      _instanceMutex = new Mutex( true, instanceName );
-      _instanceName = instanceName;
-      _listenForOtherInstances = listenForOtherInstances;
-   }
 
    public void Dispose()
    {
@@ -37,7 +28,7 @@ internal sealed class SingleInstance : IDisposable
          return false;
       }
 
-      if ( _listenForOtherInstances )
+      if ( listenForOtherInstances )
       {
          ListenForOtherProcesses();
       }
@@ -47,7 +38,7 @@ internal sealed class SingleInstance : IDisposable
    private void PingSingleInstance()
    {
       // The act of connecting indicates to the single instance that another process tried to run
-      using var client = new NamedPipeClientStream( ".", _instanceName, PipeDirection.Out );
+      using var client = new NamedPipeClientStream( ".", instanceName, PipeDirection.Out );
       try
       {
          client.Connect( 0 );
@@ -60,7 +51,7 @@ internal sealed class SingleInstance : IDisposable
 
    private void ListenForOtherProcesses()
    {
-      _server = new NamedPipeServerStream( _instanceName, PipeDirection.In, 1, PipeTransmissionMode.Message, PipeOptions.Asynchronous );
+      _server = new NamedPipeServerStream( instanceName, PipeDirection.In, 1, PipeTransmissionMode.Message, PipeOptions.Asynchronous );
       _ = _server.BeginWaitForConnection( OnPipeConnection, _server );
    }
 
