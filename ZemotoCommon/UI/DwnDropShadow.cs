@@ -13,9 +13,11 @@ internal static class DwmDropShadow
    private const int DWMNCRP_ENABLED = 2;
 
    [DllImport( "dwmapi.dll", PreserveSig = true )]
+   [DefaultDllImportSearchPaths( DllImportSearchPath.System32 )]
    private static extern int DwmSetWindowAttribute( IntPtr hwnd, int attr, ref int attrValue, int attrSize );
 
    [DllImport( "dwmapi.dll" )]
+   [DefaultDllImportSearchPaths( DllImportSearchPath.System32 )]
    private static extern int DwmExtendFrameIntoClientArea( IntPtr hWnd, ref Margins pMarInset );
 
    public static void AddDropShadowToWindow( Window window )
