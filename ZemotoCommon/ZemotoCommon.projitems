@@ -18,6 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)FileUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ScopeGuard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SingleInstance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\CommonApp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\AnimatedGroupedExpander.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\OutlinedTextBlock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Converters.cs" />
