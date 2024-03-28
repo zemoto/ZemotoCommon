@@ -18,12 +18,21 @@ internal abstract class CommonApp : Application, IDisposable
       {
          Shutdown();
       }
+
+      if ( listenForOtherInstances )
+      {
+         _singleInstance.PingedByOtherProcess += OnPingedByOtherProcess;
+      }
    }
 
-   public void Dispose() => _singleInstance.Dispose();
+   public virtual void Dispose() => _singleInstance.Dispose();
+
+   private void OnPingedByOtherProcess( object sender, EventArgs e ) => OnPingedByOtherProcess();
 
    protected override void OnExit( ExitEventArgs e ) => Dispose();
 
    private void OnUnhandledException( object sender, DispatcherUnhandledExceptionEventArgs e ) => File.WriteAllText( "crash.txt", e.Exception.ToString() );
+
+   protected virtual void OnPingedByOtherProcess() { }
 }
 #endif
