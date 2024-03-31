@@ -33,22 +33,6 @@ internal sealed class SystemFile
       }
    }
 
-   private string GetAbbreviatedPath()
-   {
-      if ( string.IsNullOrEmpty( FullPath ) )
-      {
-         return string.Empty;
-      }
-
-      var parts = FullPath.Split( '\\' );
-      if ( parts.Length <= 3 )
-      {
-         return FullPath;
-      }
-
-      return $@"..\{string.Join( @"\", parts.TakeLast( 2 ) )}";
-   }
-
    public T DeserializeContents<T>() => this.Exists() ? JsonSerializer.Deserialize<T>( File.ReadAllText( FullPath ) ) : default;
 
    public string FullPath { get; }
@@ -59,7 +43,25 @@ internal sealed class SystemFile
    public string FileNameNoExtension => _fileNameNoExtension ??= Path.GetFileNameWithoutExtension( FullPath );
 
    private string _abbreviatedPath;
-   public string AbbreviatedPath => _abbreviatedPath ??= GetAbbreviatedPath();
+   public string AbbreviatedPath
+   {
+      get
+      {
+         if ( string.IsNullOrEmpty( _abbreviatedPath ) )
+         {
+            if ( string.IsNullOrEmpty( FullPath ) )
+            {
+               _abbreviatedPath = string.Empty;
+            }
+            else
+            {
+               var parts = FullPath.Split( '\\' );
+               _abbreviatedPath = parts.Length <= 3 ? FullPath : $@"..\{string.Join( @"\", parts.TakeLast( 2 ) )}";
+            }
+         }
+         return _abbreviatedPath;
+      }
+   }
 
    public static implicit operator string( SystemFile file ) => file.FullPath;
    public static implicit operator SystemFile( string filePath ) => new SystemFile( filePath );
