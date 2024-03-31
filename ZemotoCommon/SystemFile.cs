@@ -56,7 +56,7 @@ internal sealed class SystemFile
    public string Directory { get; }
 
    private string _fileNameNoExtension;
-   public string FileNameNoExtension => _fileNameNoExtension ??= string.IsNullOrEmpty( FileName ) ? string.Empty : FileName.Split( '.' ).First();
+   public string FileNameNoExtension => _fileNameNoExtension ??= Path.GetFileNameWithoutExtension( FullPath );
 
    private string _abbreviatedPath;
    public string AbbreviatedPath => _abbreviatedPath ??= GetAbbreviatedPath();
