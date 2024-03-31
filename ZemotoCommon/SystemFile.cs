@@ -49,13 +49,11 @@ internal sealed class SystemFile
       return $@"..\{string.Join( @"\", parts.TakeLast( 2 ) )}";
    }
 
-   public T DeserializeContents<T>() => Exists ? JsonSerializer.Deserialize<T>( File.ReadAllText( FullPath ) ) : default;
+   public T DeserializeContents<T>() => this.Exists() ? JsonSerializer.Deserialize<T>( File.ReadAllText( FullPath ) ) : default;
 
    public string FullPath { get; }
    public string FileName { get; }
    public string Directory { get; }
-
-   public bool Exists => File.Exists( FullPath );
 
    private string _fileNameNoExtension;
    public string FileNameNoExtension => _fileNameNoExtension ??= string.IsNullOrEmpty( FileName ) ? string.Empty : FileName.Split( '.' ).First();
@@ -65,4 +63,13 @@ internal sealed class SystemFile
 
    public static implicit operator string( SystemFile file ) => file.FullPath;
    public static implicit operator SystemFile( string filePath ) => new SystemFile( filePath );
+}
+
+internal static class SystemFileExtensions
+{
+   /// <summary>
+   /// Returns true if the SystemFile represents a file that exists on the system.
+   /// Can be used on null objects and will return false if the object is null.
+   /// </summary>
+   public static bool Exists( this SystemFile file ) => file is not null && File.Exists( file.FullPath );
 }
