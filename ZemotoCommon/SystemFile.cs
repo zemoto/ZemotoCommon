@@ -64,14 +64,14 @@ internal sealed class SystemFile
    }
 
    public static implicit operator string( SystemFile file ) => file.FullPath;
-   public static implicit operator SystemFile( string filePath ) => new SystemFile( filePath );
+   public static implicit operator SystemFile( string filePath ) => new( filePath );
 }
 
 internal static class SystemFileExtensions
 {
    /// <summary>
    /// Returns true if the SystemFile represents a file that exists on the system.
-   /// Can be used on null objects and will return false if the object is null.
+   /// Can be used on null SystemFile objects and will return false if null.
    /// </summary>
    public static bool Exists( this SystemFile file ) => file is not null && File.Exists( file.FullPath );
 }
