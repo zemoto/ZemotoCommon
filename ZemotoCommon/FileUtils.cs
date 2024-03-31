@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Linq;
 
 namespace ZemotoCommon;
 
@@ -112,22 +111,6 @@ internal static class FileUtils
          }
          catch { /*ignored*/ }
       }
-   }
-
-   public static string AbbreviatePath( string filePath )
-   {
-      if ( string.IsNullOrEmpty( filePath ) )
-      {
-         return string.Empty;
-      }
-
-      var parts = filePath.Split( '\\' );
-      if ( parts.Length <= 3 )
-      {
-         return filePath;
-      }
-
-      return $@"..\{string.Join( @"\", parts.TakeLast( 2 ) )}";
    }
 
    public static void SafeDeleteDirectory( string dirPath )
