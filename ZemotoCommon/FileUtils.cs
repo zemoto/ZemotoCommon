@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Runtime.InteropServices;
 
 namespace ZemotoCommon;
 
@@ -61,14 +60,14 @@ internal static class FileUtils
       const int AssocStrExecutable = 2;
 
       int length = 0;
-      int ret = AssocQueryString( AssocFNone, AssocStrExecutable, extension, null, null, ref length );
+      int ret = NativeMethods.AssocQueryString( AssocFNone, AssocStrExecutable, extension, null, null, ref length );
       if ( ret != S_FALSE )
       {
          return false;
       }
 
       var outVal = new char[length - 1];
-      ret = AssocQueryString( AssocFNone, AssocStrExecutable, extension, null, outVal, ref length );
+      ret = NativeMethods.AssocQueryString( AssocFNone, AssocStrExecutable, extension, null, outVal, ref length );
       if ( ret != S_OK )
       {
          return false;
@@ -77,14 +76,4 @@ internal static class FileUtils
       appExe = new string( outVal );
       return true;
    }
-
-   [DllImport( "shlwapi.dll", CharSet = CharSet.Unicode )]
-   [DefaultDllImportSearchPaths( DllImportSearchPath.System32 )]
-   public static extern int AssocQueryString(
-      int flags,
-      int assocStr,
-      [MarshalAs( UnmanagedType.LPWStr )] string pszAssoc,
-      [MarshalAs( UnmanagedType.LPWStr )] string pszExtra,
-      [MarshalAs( UnmanagedType.LPArray )][Out] char[] pszOut,
-      ref int pcchOut );
 }
