@@ -30,10 +30,57 @@ internal sealed class SystemFile
       }
       catch
       {
+         // Default to null file on failure to parse path
+         FullPath = null;
+         FileName = null;
+         Directory = null;
       }
    }
 
    public T DeserializeContents<T>() => this.Exists() ? JsonSerializer.Deserialize<T>( File.ReadAllText( FullPath ) ) : default;
+
+   public bool CopyTo( string targetDir, string fileNameNoExtension, bool overwrite, out SystemFile copiedFile ) => CopyTo( Path.Combine( targetDir, fileNameNoExtension + Extension ), overwrite, out copiedFile );
+
+   public bool CopyTo( string targetFilePath, bool overwrite, out SystemFile copiedFile )
+   {
+      try
+      {
+         File.Copy( FullPath, targetFilePath, overwrite );
+         copiedFile = targetFilePath;
+         return true;
+      }
+      catch
+      {
+         copiedFile = null;
+         return false;
+      }
+   }
+
+   public bool MoveTo( string targetFilePath, bool overwrite, out SystemFile movedFile )
+   {
+      try
+      {
+         File.Move( FullPath, targetFilePath, overwrite );
+         movedFile = targetFilePath;
+         return true;
+      }
+      catch
+      {
+         movedFile = null;
+         return false;
+      }
+   }
+
+   public void Delete()
+   {
+      try
+      {
+         File.Delete( FullPath );
+      }
+      catch
+      {
+      }
+   }
 
    public string FullPath { get; }
    public string FileName { get; }
@@ -41,6 +88,9 @@ internal sealed class SystemFile
 
    private string _fileNameNoExtension;
    public string FileNameNoExtension => _fileNameNoExtension ??= Path.GetFileNameWithoutExtension( FullPath );
+
+   private string _extension;
+   public string Extension => _extension ??= Path.GetExtension( FullPath );
 
    private string _abbreviatedPath;
    public string AbbreviatedPath
