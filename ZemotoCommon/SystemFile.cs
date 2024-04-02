@@ -25,14 +25,14 @@ internal sealed class SystemFile
          }
 
          FullPath = path;
-         FileName = Path.GetFileName( path );
+         Name = Path.GetFileName( path );
          Directory = Path.GetDirectoryName( path );
       }
       catch
       {
          // Default to null file on failure to parse path
          FullPath = null;
-         FileName = null;
+         Name = null;
          Directory = null;
       }
    }
@@ -83,11 +83,11 @@ internal sealed class SystemFile
    }
 
    public string FullPath { get; }
-   public string FileName { get; }
+   public string Name { get; }
    public string Directory { get; }
 
-   private string _fileNameNoExtension;
-   public string FileNameNoExtension => _fileNameNoExtension ??= Path.GetFileNameWithoutExtension( FullPath );
+   private string _nameNoExtension;
+   public string NameNoExtension => _nameNoExtension ??= Path.GetFileNameWithoutExtension( FullPath );
 
    private string _extension;
    public string Extension => _extension ??= Path.GetExtension( FullPath );
