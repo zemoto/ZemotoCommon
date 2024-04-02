@@ -1,4 +1,5 @@
-using System.IO;
+﻿using System.IO;
+using System.Runtime.InteropServices;
 
 namespace ZemotoCommon;
 
@@ -39,4 +40,51 @@ internal static class FileUtils
          _ = Directory.CreateDirectory( dirPath );
       }
    }
+
+   /// <summary>
+   /// Gets the default application associated with a given extension
+   /// </summary>
+   /// <param name="extension">The extension to determine the default application for</param>
+   /// <param name="appExe">Gets set to the location of the default application exe</param>
+   /// <returns>Whether or not an associated application was found for the given extension</returns>
+   public static bool GetDefaultAppForExtension( string extension, out string appExe )
+   {
+      appExe = null;
+      if ( string.IsNullOrEmpty( extension ) )
+      {
+         return false;
+      }
+
+      const int S_OK = 0;
+      const int S_FALSE = 1;
+      const int AssocFNone = 0;
+      const int AssocStrExecutable = 2;
+
+      int length = 0;
+      int ret = AssocQueryString( AssocFNone, AssocStrExecutable, extension, null, null, ref length );
+      if ( ret != S_FALSE )
+      {
+         return false;
+      }
+
+      var outVal = new char[length - 1];
+      ret = AssocQueryString( AssocFNone, AssocStrExecutable, extension, null, outVal, ref length );
+      if ( ret != S_OK )
+      {
+         return false;
+      }
+
+      appExe = new string( outVal );
+      return true;
+   }
+
+   [DllImport( "shlwapi.dll", CharSet = CharSet.Unicode )]
+   [DefaultDllImportSearchPaths( DllImportSearchPath.System32 )]
+   public static extern int AssocQueryString(
+      int flags,
+      int assocStr,
+      [MarshalAs( UnmanagedType.LPWStr )] string pszAssoc,
+      [MarshalAs( UnmanagedType.LPWStr )] string pszExtra,
+      [MarshalAs( UnmanagedType.LPArray )][Out] char[] pszOut,
+      ref int pcchOut );
 }
