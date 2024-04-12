@@ -22,6 +22,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)SystemFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\CommonApp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\AnimatedGroupedExpander.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\RatioCanvas.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\OutlinedTextBlock.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Converters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\DwmHelper.cs" />
