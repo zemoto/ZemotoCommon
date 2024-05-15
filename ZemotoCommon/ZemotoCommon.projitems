@@ -28,8 +28,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\DwmHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\GetEnumValuesExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Bindings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\UniversalClick.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\ViewModelBase.cs" />
   </ItemGroup>
 </Project>
