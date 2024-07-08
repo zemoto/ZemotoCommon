@@ -11,7 +11,6 @@ internal sealed class ReferenceEqualityComparer : EqualityComparer<object>
 
    public override int GetHashCode( object obj )
    {
-      if ( obj == null ) return 0;
-      return obj.GetHashCode();
+      return obj == null ? 0 : obj.GetHashCode();
    }
 }

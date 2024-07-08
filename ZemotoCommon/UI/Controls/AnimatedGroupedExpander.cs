@@ -12,7 +12,7 @@ namespace ZemotoCommon.UI.Controls;
 [TemplatePart( Name = "PART_Content", Type = typeof( FrameworkElement ) )]
 internal sealed class AnimatedGroupedExpander : Expander
 {
-   private static readonly Dictionary<string, List<AnimatedGroupedExpander>> ExpanderGroups = new();
+   private static readonly Dictionary<string, List<AnimatedGroupedExpander>> ExpanderGroups = [];
    private static readonly TimeSpan _animationDuration = TimeSpan.FromMilliseconds( 200 );
 
    public static readonly DependencyProperty GroupNameProperty = DependencyProperty.Register( nameof( GroupName ), typeof( string ), typeof( AnimatedGroupedExpander ), new PropertyMetadata( string.Empty, OnGroupNameChanged ) );
@@ -38,7 +38,7 @@ internal sealed class AnimatedGroupedExpander : Expander
       {
          if ( !ExpanderGroups.TryGetValue( newGroupName, out List<AnimatedGroupedExpander> value ) )
          {
-            ExpanderGroups[newGroupName] = value = new List<AnimatedGroupedExpander>();
+            ExpanderGroups[newGroupName] = value = [];
          }
 
          value.Add( expander );
