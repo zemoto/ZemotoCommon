@@ -39,6 +39,12 @@ internal sealed class SystemFile
 
    public T DeserializeContents<T>() => this.Exists() ? JsonSerializer.Deserialize<T>( File.ReadAllText( FullPath ) ) : default;
 
+   public void SerializeInto<T>( T objectToSerialize )
+   {
+      var serializedContent = JsonSerializer.Serialize( objectToSerialize );
+      File.WriteAllText( FullPath, serializedContent );
+   }
+
    public bool CopyTo( string targetDir, string fileNameNoExtension, bool overwrite, out SystemFile copiedFile ) => CopyTo( Path.Combine( targetDir, fileNameNoExtension + Extension ), overwrite, out copiedFile );
 
    public bool CopyTo( string targetFilePath, bool overwrite, out SystemFile copiedFile )
