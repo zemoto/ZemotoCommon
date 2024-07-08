@@ -21,7 +21,7 @@ internal sealed class SystemFile
       {
          if ( !Path.IsPathRooted( path ) )
          {
-            path = Path.GetFullPath( path );
+            path = Path.Combine( AppContext.BaseDirectory, path );
          }
 
          FullPath = path;
