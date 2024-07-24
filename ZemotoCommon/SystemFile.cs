@@ -15,6 +15,8 @@ internal sealed class SystemFileJsonConverter : JsonConverter<SystemFile>
 [JsonConverter( typeof( SystemFileJsonConverter ) )]
 internal sealed class SystemFile
 {
+   private readonly static JsonSerializerOptions _serializerOptions = new() { IgnoreReadOnlyProperties = true };
+
    public SystemFile( string path )
    {
       try
@@ -37,11 +39,11 @@ internal sealed class SystemFile
       }
    }
 
-   public T DeserializeContents<T>() => this.Exists() ? JsonSerializer.Deserialize<T>( File.ReadAllText( FullPath ) ) : default;
+   public T DeserializeContents<T>() => this.Exists() ? JsonSerializer.Deserialize<T>( File.ReadAllText( FullPath ), _serializerOptions ) : default;
 
    public void SerializeInto<T>( T objectToSerialize )
    {
-      var serializedContent = JsonSerializer.Serialize( objectToSerialize );
+      var serializedContent = JsonSerializer.Serialize( objectToSerialize, _serializerOptions );
       File.WriteAllText( FullPath, serializedContent );
    }
 
