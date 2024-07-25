@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\AnimatedGroupedExpander.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\RatioCanvas.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\OutlinedTextBlock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\ResizeGripper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Converters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\CustomProperties.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\DwmHelper.cs" />
