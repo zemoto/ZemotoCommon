@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -14,7 +14,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Comparers.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeepCopy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionMethods.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)FileUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ScopeGuard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SingleInstance.cs" />
