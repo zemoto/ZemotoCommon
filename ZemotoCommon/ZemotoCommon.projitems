@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ScopeGuard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SingleInstance.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WindowsStartup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SystemFile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\CommonApp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\AnimatedGroupedExpander.cs" />
