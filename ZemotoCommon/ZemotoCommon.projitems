@@ -31,5 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\GetEnumValuesExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Bindings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\UniversalClick.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\UtilityCommands.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UtilityMethods.cs" />
   </ItemGroup>
 </Project>
