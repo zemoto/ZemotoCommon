@@ -15,7 +15,7 @@ internal sealed class SystemFileJsonConverter : JsonConverter<SystemFile>
 [JsonConverter( typeof( SystemFileJsonConverter ) )]
 internal sealed class SystemFile
 {
-   private readonly static JsonSerializerOptions _serializerOptions = new() { IgnoreReadOnlyProperties = true };
+   private static readonly JsonSerializerOptions _serializerOptions = new() { IgnoreReadOnlyProperties = true };
 
    public SystemFile( string path )
    {
@@ -121,8 +121,15 @@ internal sealed class SystemFile
       }
    }
 
-   public static implicit operator string( SystemFile file ) => file.FullPath;
-   public static implicit operator SystemFile( string filePath ) => new( filePath );
+   public static implicit operator string( SystemFile file )
+   {
+      return file.FullPath;
+   }
+
+   public static implicit operator SystemFile( string filePath )
+   {
+      return new( filePath );
+   }
 }
 
 internal static class SystemFileExtensions

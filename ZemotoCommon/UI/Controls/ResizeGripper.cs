@@ -68,7 +68,7 @@ internal sealed class ResizeGripper : Control
          _initialMousePosition = Mouse.GetPosition( Target );
          _initialTargetSize = new Size( Target.Width, Target.Height );
          _minSize = new Size( Target.MinWidth, Target.MinHeight );
-         
+
          if ( double.IsNaN( _minSize.Width ) )
          {
             _minSize.Width = 0;
