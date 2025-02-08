@@ -5,7 +5,7 @@ namespace ZemotoCommon;
 
 internal static class UtilityMethods
 {
-   public static void OpenInBrowser( string url ) => Process.Start( new ProcessStartInfo( url ) { UseShellExecute = true } );
+   public static void OpenInBrowser( string url ) => Process.Start( new ProcessStartInfo( new System.UriBuilder( url ).ToString() ) { UseShellExecute = true } );
 
    public static string MakeUniqueFileName( string filePath )
    {
