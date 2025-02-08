@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)CancelTokenProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ChildProcessWatcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Comparers.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Debugging\BindingErrorListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeepCopy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />

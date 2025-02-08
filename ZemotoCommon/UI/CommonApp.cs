@@ -23,6 +23,10 @@ internal abstract class CommonApp : Application, IDisposable
       {
          _singleInstance.PingedByOtherProcess += OnPingedByOtherProcess;
       }
+
+#if DEBUG
+      _ = new Debugging.BindingErrorListener();
+#endif
    }
 
    public virtual void Dispose() => _singleInstance.Dispose();
