@@ -58,7 +58,7 @@ internal static class WindowsStartup
    {
       const string exeExtension = ".exe";
       var exeName = AppDomain.CurrentDomain.FriendlyName;
-      if ( !exeName.EndsWith( exeExtension ) )
+      if ( !exeName.EndsWith( exeExtension, StringComparison.OrdinalIgnoreCase ) )
       {
          exeName += exeExtension;
       }
