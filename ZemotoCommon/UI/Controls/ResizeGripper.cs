@@ -97,8 +97,8 @@ internal sealed class ResizeGripper : Control
    {
       if ( IsMouseCaptured )
       {
-         var newPosition = Mouse.GetPosition( Target );
-         var delta = newPosition - _initialMousePosition;
+         Point newPosition = Mouse.GetPosition( Target );
+         Vector delta = newPosition - _initialMousePosition;
 
          if ( Direction.HasFlag( ResizeDirection.Horizontal ) )
          {

@@ -46,17 +46,17 @@ internal static class EqualityLogic
 {
    public static bool GetEqualityValue( object value, object parameter, bool invert, CultureInfo culture )
    {
-      var castedParameter = parameter;
+      object castedParameter = parameter;
       if ( value is not null )
       {
-         var sourceType = value.GetType();
+         Type sourceType = value.GetType();
          if ( sourceType != typeof( object ) )
          {
             castedParameter = Convert.ChangeType( parameter, sourceType, culture );
          }
       }
 
-      var equalityFunction = value is null ? new Func<object, bool>( x => x is null ) : value.Equals;
+      Func<object, bool> equalityFunction = value is null ? new Func<object, bool>( x => x is null ) : value.Equals;
       return invert ? !equalityFunction( castedParameter ) : equalityFunction( castedParameter );
    }
 }

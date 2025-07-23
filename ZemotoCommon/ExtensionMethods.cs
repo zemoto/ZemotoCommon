@@ -8,20 +8,11 @@ namespace ZemotoCommon;
 
 internal static class ExtensionMethods
 {
-   public static bool IsEqualTo( this double first, double second )
-   {
-      return Math.Abs( first - second ) < double.Epsilon;
-   }
+   public static bool IsEqualTo( this double first, double second ) => Math.Abs( first - second ) < double.Epsilon;
 
-   public static bool IsZero( this double value )
-   {
-      return Math.Abs( value ) < double.Epsilon;
-   }
+   public static bool IsZero( this double value ) => Math.Abs( value ) < double.Epsilon;
 
-   public static double MapNumberToRange( this double value, double oldMin, double oldMax, double newMin, double newMax )
-   {
-      return ( ( value - oldMin ) / ( oldMax - oldMin ) * ( newMax - newMin ) ) + newMin;
-   }
+   public static double MapNumberToRange( this double value, double oldMin, double oldMax, double newMin, double newMax ) => ( ( value - oldMin ) / ( oldMax - oldMin ) * ( newMax - newMin ) ) + newMin;
 
    public static void StartAsChildProcess( this Process process )
    {
@@ -31,16 +22,13 @@ internal static class ExtensionMethods
       _ = ChildProcessWatcher.AddProcess( process );
    }
 
-   public static void ForEach<T>( this IEnumerable<T> collection, Action<T> action )
-   {
-      collection.ToList().ForEach( action );
-   }
+   public static void ForEach<T>( this IEnumerable<T> collection, Action<T> action ) => collection.ToList().ForEach( action );
 
    public static T GetAttribute<T>( this Enum enumValue ) where T : Attribute
    {
       ArgumentNullException.ThrowIfNull( enumValue );
 
-      var enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() )[0];
+      MemberInfo enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() )[0];
       return GetAttribute<T>( enumValueInfo );
    }
 
@@ -48,7 +36,7 @@ internal static class ExtensionMethods
    {
       ArgumentNullException.ThrowIfNull( property );
 
-      var attribute = property.GetCustomAttributes( typeof( T ), false ).FirstOrDefault();
+      object attribute = property.GetCustomAttributes( typeof( T ), false ).FirstOrDefault();
       return attribute as T;
    }
 
@@ -56,7 +44,7 @@ internal static class ExtensionMethods
    {
       ArgumentNullException.ThrowIfNull( enumValue );
 
-      var enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() )[0];
+      MemberInfo enumValueInfo = enumValue.GetType().GetMember( enumValue.ToString() )[0];
       return GetAttributes<T>( enumValueInfo );
    }
 
@@ -97,6 +85,7 @@ internal static class ExtensionMethods
          {
             _maxLengths[i] = array.GetLength( i ) - 1;
          }
+
          Position = new int[array.Rank];
       }
 
@@ -111,9 +100,11 @@ internal static class ExtensionMethods
                {
                   Position[j] = 0;
                }
+
                return true;
             }
          }
+
          return false;
       }
    }

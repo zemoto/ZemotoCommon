@@ -27,7 +27,7 @@ internal static class DwmHelper
    {
       try
       {
-         var windowHandle = new WindowInteropHelper( window ).Handle;
+         IntPtr windowHandle = new WindowInteropHelper( window ).Handle;
          int val = NativeMethods.DWMNCRP_ENABLED;
          if ( NativeMethods.DwmSetWindowAttribute( windowHandle, NativeMethods.DWMWA_NCRENDERING_POLICY, ref val, sizeof( int ) ) == 0 )
          {

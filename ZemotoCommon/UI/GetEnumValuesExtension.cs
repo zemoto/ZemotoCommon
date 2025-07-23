@@ -22,15 +22,16 @@ internal sealed class BoundEnumMember
 
    private static string GetDescription( object value )
    {
-      var enumMember = value.GetType().GetMember( value.ToString() ).FirstOrDefault();
+      System.Reflection.MemberInfo enumMember = value.GetType().GetMember( value.ToString() ).FirstOrDefault();
       if ( enumMember != null )
       {
-         var description = enumMember.GetAttribute<DescriptionAttribute>()?.Description;
+         string description = enumMember.GetAttribute<DescriptionAttribute>()?.Description;
          if ( !string.IsNullOrEmpty( description ) )
          {
             return description;
          }
       }
+
       return value.ToString();
    }
 }
@@ -45,7 +46,7 @@ internal sealed class GetEnumValuesExtension( Type type ) : MarkupExtension
          box.DisplayMemberPath = "Display";
       }
 
-      var enumValues = Enum.GetValues( type );
+      Array enumValues = Enum.GetValues( type );
 
       return ( from object enumValue in enumValues
                select new BoundEnumMember( enumValue ) ).ToArray();

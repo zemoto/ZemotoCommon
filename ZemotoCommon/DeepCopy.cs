@@ -18,13 +18,13 @@ internal static class DeepCopy
          return null;
       }
 
-      var typeToReflect = originalObject.GetType();
+      Type typeToReflect = originalObject.GetType();
       if ( IsPrimitive( typeToReflect ) )
       {
          return originalObject;
       }
 
-      if ( visited.TryGetValue( originalObject, out var value ) )
+      if ( visited.TryGetValue( originalObject, out object value ) )
       {
          return value;
       }
@@ -34,13 +34,13 @@ internal static class DeepCopy
          return null;
       }
 
-      var cloneObject = CloneMethod.Invoke( originalObject, null );
+      object cloneObject = CloneMethod.Invoke( originalObject, null );
       if ( typeToReflect.IsArray )
       {
-         var arrayType = typeToReflect.GetElementType();
+         Type arrayType = typeToReflect.GetElementType();
          if ( !IsPrimitive( arrayType ) )
          {
-            Array clonedArray = (Array)cloneObject;
+            var clonedArray = (Array)cloneObject;
             clonedArray.ForEach( ( array, indices ) => array.SetValue( InternalCopy( clonedArray.GetValue( indices ), visited ), indices ) );
          }
       }
@@ -75,8 +75,8 @@ internal static class DeepCopy
             continue;
          }
 
-         var originalFieldValue = fieldInfo.GetValue( originalObject );
-         var clonedFieldValue = InternalCopy( originalFieldValue, visited );
+         object originalFieldValue = fieldInfo.GetValue( originalObject );
+         object clonedFieldValue = InternalCopy( originalFieldValue, visited );
          fieldInfo.SetValue( cloneObject, clonedFieldValue );
       }
    }

@@ -43,7 +43,7 @@ internal sealed class SystemFile
 
    public void SerializeInto<T>( T objectToSerialize )
    {
-      var serializedContent = JsonSerializer.Serialize( objectToSerialize, _serializerOptions );
+      string serializedContent = JsonSerializer.Serialize( objectToSerialize, _serializerOptions );
       File.WriteAllText( FullPath, serializedContent );
    }
 
@@ -113,23 +113,18 @@ internal sealed class SystemFile
             }
             else
             {
-               var parts = FullPath.Split( '\\' );
+               string[] parts = FullPath.Split( '\\' );
                _abbreviatedPath = parts.Length <= 3 ? FullPath : $@"..\{string.Join( @"\", parts.TakeLast( 2 ) )}";
             }
          }
+
          return _abbreviatedPath;
       }
    }
 
-   public static implicit operator string( SystemFile file )
-   {
-      return file.FullPath;
-   }
+   public static implicit operator string( SystemFile file ) => file.FullPath;
 
-   public static implicit operator SystemFile( string filePath )
-   {
-      return new( filePath );
-   }
+   public static implicit operator SystemFile( string filePath ) => new( filePath );
 }
 
 internal static class SystemFileExtensions

@@ -32,6 +32,7 @@ internal sealed class SingleInstance( string instanceName, bool listenForOtherIn
       {
          ListenForOtherProcesses();
       }
+
       return true;
    }
 

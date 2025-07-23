@@ -24,7 +24,7 @@ internal static class WindowsStartup
    {
       try
       {
-         var regKey = Registry.CurrentUser.CreateSubKey( _startupRegKey, false );
+         RegistryKey regKey = Registry.CurrentUser.CreateSubKey( _startupRegKey, false );
          return ExeLocation.Equals( regKey.GetValue( ExeName ) as string, StringComparison.OrdinalIgnoreCase );
       }
       catch
@@ -37,7 +37,7 @@ internal static class WindowsStartup
    {
       try
       {
-         var regKey = Registry.CurrentUser.CreateSubKey( _startupRegKey, true );
+         RegistryKey regKey = Registry.CurrentUser.CreateSubKey( _startupRegKey, true );
          if ( startup )
          {
             regKey.SetValue( ExeName, ExeLocation );
@@ -46,6 +46,7 @@ internal static class WindowsStartup
          {
             regKey.DeleteValue( ExeName );
          }
+
          return true;
       }
       catch
@@ -57,7 +58,7 @@ internal static class WindowsStartup
    private static string GetRunningExeName()
    {
       const string exeExtension = ".exe";
-      var exeName = AppDomain.CurrentDomain.FriendlyName;
+      string exeName = AppDomain.CurrentDomain.FriendlyName;
       if ( !exeName.EndsWith( exeExtension, StringComparison.OrdinalIgnoreCase ) )
       {
          exeName += exeExtension;
@@ -70,7 +71,7 @@ internal static class WindowsStartup
    {
       try
       {
-         var regKey = Registry.CurrentUser.OpenSubKey( _startupAllowedRegKey, true );
+         RegistryKey regKey = Registry.CurrentUser.OpenSubKey( _startupAllowedRegKey, true );
          bool allowedByWindows = regKey.GetValue( ExeName ) is not byte[] value || ( value.Length > 0 && value[0] == 2 );
          if ( !allowedByWindows )
          {

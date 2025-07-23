@@ -25,7 +25,7 @@ internal sealed class AnimatedGroupedExpander : Expander
 
       if ( e.OldValue is string oldGroupName && !string.IsNullOrEmpty( oldGroupName ) )
       {
-         var group = ExpanderGroups[oldGroupName];
+         List<AnimatedGroupedExpander> group = ExpanderGroups[oldGroupName];
          _ = group.Remove( expander );
 
          if ( group.Count == 0 )
@@ -65,7 +65,7 @@ internal sealed class AnimatedGroupedExpander : Expander
    {
       if ( !string.IsNullOrEmpty( GroupName ) )
       {
-         foreach ( var expander in ExpanderGroups[GroupName].Where( expander => expander != this ) )
+         foreach ( AnimatedGroupedExpander expander in ExpanderGroups[GroupName].Where( expander => expander != this ) )
          {
             expander.IsExpanded = false;
          }
@@ -91,6 +91,7 @@ internal sealed class AnimatedGroupedExpander : Expander
       {
          _contentControl.SizeChanged -= OnContentControlSizeChanged;
       }
+
       if ( Template is null )
       {
          return;

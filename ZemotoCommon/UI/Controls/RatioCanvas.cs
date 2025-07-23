@@ -36,8 +36,8 @@ internal sealed class RatioCanvas : Panel
    {
       foreach ( UIElement child in InternalChildren )
       {
-         var childXRatio = GetXRatio( child );
-         var childYRatio = GetYRatio( child );
+         double childXRatio = GetXRatio( child );
+         double childYRatio = GetYRatio( child );
 
          var childTopLeft = new Point( 0, 0 );
          if ( !double.IsNaN( childXRatio ) )

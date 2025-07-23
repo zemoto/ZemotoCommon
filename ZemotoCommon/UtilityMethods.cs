@@ -19,6 +19,7 @@ internal static class UtilityMethods
          {
             return filePath;
          }
+
          filePath = Path.Combine( dir, $"{fileName}({i}){fileExt}" );
       }
    }
@@ -69,7 +70,7 @@ internal static class UtilityMethods
          return false;
       }
 
-      var outVal = new char[length - 1];
+      char[] outVal = new char[length - 1];
       ret = NativeMethods.AssocQueryString( AssocFNone, AssocStrExecutable, extension, null, outVal, ref length );
       if ( ret != S_OK )
       {

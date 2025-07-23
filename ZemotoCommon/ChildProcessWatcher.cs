@@ -29,11 +29,11 @@ internal static class ChildProcessWatcher
          BasicLimitInformation = info
       };
 
-      var length = Marshal.SizeOf<NativeMethods.JOBOBJECT_EXTENDED_LIMIT_INFORMATION>();
-      var extendedInfoPtr = Marshal.AllocHGlobal( length );
+      int length = Marshal.SizeOf<NativeMethods.JOBOBJECT_EXTENDED_LIMIT_INFORMATION>();
+      IntPtr extendedInfoPtr = Marshal.AllocHGlobal( length );
       Marshal.StructureToPtr( extendedInfo, extendedInfoPtr, false );
 
-      var result = NativeMethods.SetInformationJobObject( _handle, NativeMethods.JobObjectInfoType.ExtendedLimitInformation, extendedInfoPtr, (uint)length );
+      bool result = NativeMethods.SetInformationJobObject( _handle, NativeMethods.JobObjectInfoType.ExtendedLimitInformation, extendedInfoPtr, (uint)length );
       Debug.Assert( result );
 
       Marshal.FreeHGlobal( extendedInfoPtr );

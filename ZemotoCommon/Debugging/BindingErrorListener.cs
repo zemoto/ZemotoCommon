@@ -1,4 +1,4 @@
-﻿#if (DEBUG && ZEMOTOUI)
+﻿#if DEBUG && ZEMOTOUI
 using System.Diagnostics;
 using System.Windows;
 

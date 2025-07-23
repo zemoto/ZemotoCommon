@@ -47,7 +47,7 @@ internal sealed class DoubleBinding : Binding
    {
       public override ValidationResult Validate( object value, CultureInfo c )
       {
-         var validValue = double.TryParse( (string)value, out double doubleValue ) && doubleValue >= min && doubleValue <= max;
+         bool validValue = double.TryParse( (string)value, out double doubleValue ) && doubleValue >= min && doubleValue <= max;
          return validValue ? new ValidationResult( true, null ) : new ValidationResult( false, $"Value must be a number between {min} and {max}" );
       }
    }
