@@ -39,7 +39,26 @@ internal sealed class SystemFile
       }
    }
 
-   public T DeserializeContents<T>() => this.Exists() ? JsonSerializer.Deserialize<T>( File.ReadAllText( FullPath ), _serializerOptions ) : default;
+   public bool ReadAllText( out string contents )
+   {
+      contents = string.Empty;
+      try
+      {
+         if ( this.Exists() )
+         {
+            contents = File.ReadAllText( FullPath );
+            return true;
+         }
+      }
+      catch
+      {
+         // Fall through to fail case
+      }
+
+      return false;
+   }
+
+   public T DeserializeContents<T>() => ReadAllText( out string contents ) ? JsonSerializer.Deserialize<T>( contents, _serializerOptions ) : default;
 
    public void SerializeInto<T>( T objectToSerialize )
    {
