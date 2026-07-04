@@ -1,7 +1,5 @@
 ﻿#if ZEMOTOUI
-using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Markup;
 
@@ -17,15 +15,15 @@ internal sealed class BoundEnumMember
       Value = value;
    }
 
-   public string Display { get; }
-   public object Value { get; }
+   public string? Display { get; }
+   public object? Value { get; }
 
-   private static string GetDescription( object value )
+   private static string? GetDescription( object value )
    {
-      System.Reflection.MemberInfo enumMember = value.GetType().GetMember( value.ToString() ).FirstOrDefault();
+      System.Reflection.MemberInfo? enumMember = value.GetType().GetMember( value.ToString() ?? string.Empty ).FirstOrDefault();
       if ( enumMember != null )
       {
-         string description = enumMember.GetAttribute<DescriptionAttribute>()?.Description;
+         string? description = enumMember.GetAttribute<DescriptionAttribute>()?.Description;
          if ( !string.IsNullOrEmpty( description ) )
          {
             return description;

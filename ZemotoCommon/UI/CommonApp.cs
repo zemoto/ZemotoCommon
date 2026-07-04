@@ -1,5 +1,4 @@
 ﻿#if ZEMOTOUI
-using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
@@ -31,7 +30,7 @@ internal abstract class CommonApp : Application, IDisposable
 
    public virtual void Dispose() => _singleInstance.Dispose();
 
-   private void OnPingedByOtherProcess( object sender, EventArgs e ) => OnPingedByOtherProcess();
+   private void OnPingedByOtherProcess( object? sender, EventArgs e ) => OnPingedByOtherProcess();
 
    protected override void OnExit( ExitEventArgs e ) => Dispose();
 

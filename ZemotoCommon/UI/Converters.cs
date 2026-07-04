@@ -1,7 +1,5 @@
 ﻿#if ZEMOTOUI
-using System;
 using System.Globalization;
-using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 
@@ -35,11 +33,11 @@ internal sealed class BoolVisibilityConverter : IValueConverter
 
 internal sealed class BoolToObjectConverter : IValueConverter
 {
-   public object TrueValue { get; set; }
-   public object FalseValue { get; set; }
+   public object? TrueValue { get; set; }
+   public object? FalseValue { get; set; }
 
-   public object Convert( object value, Type targetType, object parameter, CultureInfo culture ) => value is bool boolValue ? boolValue ? TrueValue : FalseValue : FalseValue;
-   public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => value?.Equals( TrueValue ) ?? false;
+   public object? Convert( object value, Type targetType, object parameter, CultureInfo culture ) => value is bool boolValue ? boolValue ? TrueValue : FalseValue : FalseValue;
+   public object? ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => value?.Equals( TrueValue ) ?? false;
 }
 
 internal static class EqualityLogic
@@ -72,16 +70,16 @@ internal sealed class EqualityConverter : IValueConverter
 
 internal sealed class EqualityToObjectConverter : IValueConverter
 {
-   public object EqualValue { get; set; }
-   public object NotEqualValue { get; set; }
+   public object? EqualValue { get; set; }
+   public object? NotEqualValue { get; set; }
 
-   public object Convert( object value, Type targetType, object parameter, CultureInfo culture )
+   public object? Convert( object value, Type targetType, object parameter, CultureInfo culture )
    {
       bool equalityValue = EqualityLogic.GetEqualityValue( value, parameter, false, culture );
       return equalityValue ? EqualValue : NotEqualValue;
    }
 
-   public object ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
+   public object? ConvertBack( object value, Type targetType, object parameter, CultureInfo culture ) => throw new NotImplementedException();
 }
 
 internal sealed class MultiBoolToBoolAndConverter : IMultiValueConverter

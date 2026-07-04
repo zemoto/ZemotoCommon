@@ -1,6 +1,5 @@
 ﻿#if ZEMOTOUI
 // Based on https://stackoverflow.com/questions/3372303/dropshadow-for-wpf-borderless-window
-using System;
 using System.Windows;
 using System.Windows.Interop;
 
@@ -16,11 +15,13 @@ internal static class DwmHelper
       }
    }
 
-   private static void OnWindowSourceInitialized( object sender, EventArgs e )
+   private static void OnWindowSourceInitialized( object? sender, EventArgs e )
    {
-      var window = (Window)sender;
-      _ = EnableDwm( window );
-      window.SourceInitialized -= OnWindowSourceInitialized;
+      if ( sender is Window window )
+      {
+         _ = EnableDwm( window );
+         window.SourceInitialized -= OnWindowSourceInitialized;
+      }
    }
 
    private static bool EnableDwm( Window window )

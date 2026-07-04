@@ -1,5 +1,4 @@
 ﻿using Microsoft.Win32;
-using System;
 using System.IO;
 
 namespace ZemotoCommon;
@@ -9,16 +8,14 @@ internal static class WindowsStartup
    private const string _startupRegKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
    private const string _startupAllowedRegKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\StartupApproved\Run";
 
-   private static string _exeName;
-   private static string ExeName => _exeName ??= GetRunningExeName();
+   private static string ExeName => field ??= GetRunningExeName();
 
-   private static string _exeLocation;
-   private static string ExeLocation => _exeLocation ??= Path.Combine( AppContext.BaseDirectory, ExeName );
+   private static string ExeLocation => field ??= Path.Combine( AppContext.BaseDirectory, ExeName );
 
    private static bool? _allowedToStartWithWindows;
    public static bool AllowedToStartWithWindows => _allowedToStartWithWindows ??= CheckIfAllowedToStartWithWindows();
 
-   public static string NotAllowedReason { get; private set; }
+   public static string? NotAllowedReason { get; private set; }
 
    public static bool GetStartupWithWindows()
    {
@@ -71,7 +68,13 @@ internal static class WindowsStartup
    {
       try
       {
-         RegistryKey regKey = Registry.CurrentUser.OpenSubKey( _startupAllowedRegKey, true );
+         RegistryKey? regKey = Registry.CurrentUser.OpenSubKey( _startupAllowedRegKey, true );
+         if ( regKey is null )
+         {
+            NotAllowedReason = "Insufficient read or write permissions, try running this app as admin.";
+            return false;
+         }
+
          bool allowedByWindows = regKey.GetValue( ExeName ) is not byte[] value || ( value.Length > 0 && value[0] == 2 );
          if ( !allowedByWindows )
          {

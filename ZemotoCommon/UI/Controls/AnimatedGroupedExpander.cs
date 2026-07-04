@@ -1,7 +1,4 @@
 ﻿#if ZEMOTOUI
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -36,7 +33,7 @@ internal sealed class AnimatedGroupedExpander : Expander
 
       if ( e.NewValue is string newGroupName && !string.IsNullOrEmpty( newGroupName ) )
       {
-         if ( !ExpanderGroups.TryGetValue( newGroupName, out List<AnimatedGroupedExpander> value ) )
+         if ( !ExpanderGroups.TryGetValue( newGroupName, out List<AnimatedGroupedExpander>? value ) )
          {
             ExpanderGroups[newGroupName] = value = [];
          }
@@ -51,8 +48,8 @@ internal sealed class AnimatedGroupedExpander : Expander
       set => SetValue( GroupNameProperty, value );
    }
 
-   private Panel _contentContainer;
-   private FrameworkElement _contentControl;
+   private Panel? _contentContainer;
+   private FrameworkElement? _contentControl;
 
    public AnimatedGroupedExpander()
    {
@@ -111,7 +108,7 @@ internal sealed class AnimatedGroupedExpander : Expander
       if ( IsExpanded )
       {
          // Setting the height directly does not work here for some reason, so use a zero duration animation
-         _contentContainer.BeginAnimation( HeightProperty, new DoubleAnimation( _contentControl.ActualHeight, TimeSpan.Zero ) );
+         _contentContainer?.BeginAnimation( HeightProperty, new DoubleAnimation( _contentControl?.ActualHeight ?? 0, TimeSpan.Zero ) );
       }
    }
 

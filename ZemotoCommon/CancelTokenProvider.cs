@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-
-namespace ZemotoCommon;
+﻿namespace ZemotoCommon;
 
 internal sealed class CancelTokenProvider : IDisposable
 {

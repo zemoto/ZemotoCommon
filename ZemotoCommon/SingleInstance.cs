@@ -1,15 +1,13 @@
-﻿using System;
-using System.IO.Pipes;
-using System.Threading;
+﻿using System.IO.Pipes;
 
 namespace ZemotoCommon;
 
 internal sealed class SingleInstance( string instanceName, bool listenForOtherInstances ) : IDisposable
 {
-   public event EventHandler PingedByOtherProcess;
+   public event EventHandler? PingedByOtherProcess;
 
    private readonly Mutex _instanceMutex = new( true, instanceName );
-   private NamedPipeServerStream _server;
+   private NamedPipeServerStream? _server;
 
    private bool _disposed;
 
@@ -58,6 +56,11 @@ internal sealed class SingleInstance( string instanceName, bool listenForOtherIn
 
    private void OnPipeConnection( IAsyncResult ar )
    {
+      if ( ar?.AsyncState is null )
+      {
+         return;
+      }
+
       using ( var server = (NamedPipeServerStream)ar.AsyncState )
       {
          try

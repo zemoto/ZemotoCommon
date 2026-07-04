@@ -5,7 +5,12 @@ namespace ZemotoCommon.UI;
 
 internal static class UtilityCommands
 {
-   private static RelayCommand<string> _openInBrowserCommand;
-   public static RelayCommand<string> OpenInBrowserCommand => _openInBrowserCommand ??= new RelayCommand<string>( UtilityMethods.OpenInBrowser );
+   public static RelayCommand<string> OpenInBrowserCommand => field ??= new RelayCommand<string>( url =>
+   {
+      if ( !string.IsNullOrEmpty( url ) )
+      {
+         UtilityMethods.OpenInBrowser( url );
+      }
+   } );
 }
 #endif

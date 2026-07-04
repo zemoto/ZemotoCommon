@@ -5,13 +5,18 @@ namespace ZemotoCommon;
 
 internal static class UtilityMethods
 {
-   public static void OpenInBrowser( string url ) => Process.Start( new ProcessStartInfo( new System.UriBuilder( url ).ToString() ) { UseShellExecute = true } );
+   public static void OpenInBrowser( string url ) => Process.Start( new ProcessStartInfo( new UriBuilder( url ).ToString() ) { UseShellExecute = true } );
 
    public static string MakeUniqueFileName( string filePath )
    {
-      string dir = Path.GetDirectoryName( filePath );
+      string? dir = Path.GetDirectoryName( filePath );
       string fileName = Path.GetFileNameWithoutExtension( filePath );
       string fileExt = Path.GetExtension( filePath );
+
+      if ( string.IsNullOrEmpty( dir ) )
+      {
+         return filePath;
+      }
 
       for ( int i = 1; ; i++ )
       {
@@ -52,7 +57,7 @@ internal static class UtilityMethods
    /// <returns>Whether or not an associated application was found for the given extension</returns>
    public static bool GetDefaultAppForExtension( string extension, out string appExe )
    {
-      appExe = null;
+      appExe = string.Empty;
       if ( string.IsNullOrEmpty( extension ) )
       {
          return false;

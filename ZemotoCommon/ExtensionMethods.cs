@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Reflection;
 
 namespace ZemotoCommon;
@@ -24,7 +21,7 @@ internal static class ExtensionMethods
 
    public static void ForEach<T>( this IEnumerable<T> collection, Action<T> action ) => collection.ToList().ForEach( action );
 
-   public static T GetAttribute<T>( this Enum enumValue ) where T : Attribute
+   public static T? GetAttribute<T>( this Enum enumValue ) where T : Attribute
    {
       ArgumentNullException.ThrowIfNull( enumValue );
 
@@ -32,11 +29,11 @@ internal static class ExtensionMethods
       return GetAttribute<T>( enumValueInfo );
    }
 
-   public static T GetAttribute<T>( this ICustomAttributeProvider property ) where T : Attribute
+   public static T? GetAttribute<T>( this ICustomAttributeProvider property ) where T : Attribute
    {
       ArgumentNullException.ThrowIfNull( property );
 
-      object attribute = property.GetCustomAttributes( typeof( T ), false ).FirstOrDefault();
+      object? attribute = property.GetCustomAttributes( typeof( T ), false ).FirstOrDefault();
       return attribute as T;
    }
 

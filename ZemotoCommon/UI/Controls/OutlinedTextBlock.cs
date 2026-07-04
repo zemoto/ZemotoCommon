@@ -1,5 +1,4 @@
 ﻿#if ZEMOTOUI
-using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
@@ -138,9 +137,9 @@ internal sealed class OutlinedTextBlock : FrameworkElement
       set => SetValue( TextWrappingProperty, value );
    }
 
-   private FormattedText _formattedText;
-   private Geometry _textGeometry;
-   private Pen _pen;
+   private FormattedText? _formattedText;
+   private Geometry? _textGeometry;
+   private Pen? _pen;
 
    public OutlinedTextBlock() => UpdatePen();
 
@@ -169,18 +168,18 @@ internal sealed class OutlinedTextBlock : FrameworkElement
    {
       EnsureFormattedText();
 
-      _formattedText.MaxTextWidth = Math.Min( 3579139, availableSize.Width );
-      _formattedText.MaxTextHeight = Math.Max( 0.0001d, availableSize.Height );
+      _formattedText?.MaxTextWidth = Math.Min( 3579139, availableSize.Width );
+      _formattedText?.MaxTextHeight = Math.Max( 0.0001d, availableSize.Height );
 
-      return new Size( Math.Ceiling( _formattedText.Width ), Math.Ceiling( _formattedText.Height ) );
+      return new Size( Math.Ceiling( _formattedText?.Width ?? 0 ), Math.Ceiling( _formattedText?.Height ?? 0 ) );
    }
 
    protected override Size ArrangeOverride( Size finalSize )
    {
       EnsureFormattedText();
 
-      _formattedText.MaxTextWidth = finalSize.Width;
-      _formattedText.MaxTextHeight = Math.Max( 0.0001d, finalSize.Height );
+      _formattedText?.MaxTextWidth = finalSize.Width;
+      _formattedText?.MaxTextHeight = Math.Max( 0.0001d, finalSize.Height );
       _textGeometry = null;
 
       return finalSize;
@@ -249,7 +248,7 @@ internal sealed class OutlinedTextBlock : FrameworkElement
       if ( _textGeometry is null )
       {
          EnsureFormattedText();
-         _textGeometry = _formattedText.BuildGeometry( new Point( 0, 0 ) );
+         _textGeometry = _formattedText?.BuildGeometry( new Point( 0, 0 ) );
       }
    }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace ZemotoCommon;
 
@@ -82,9 +81,9 @@ internal static class NativeMethods
    public static extern int AssocQueryString(
       int flags,
       int assocStr,
-      [MarshalAs( UnmanagedType.LPWStr )] string pszAssoc,
-      [MarshalAs( UnmanagedType.LPWStr )] string pszExtra,
-      [MarshalAs( UnmanagedType.LPArray )][Out] char[] pszOut,
+      [MarshalAs( UnmanagedType.LPWStr )] string? pszAssoc,
+      [MarshalAs( UnmanagedType.LPWStr )] string? pszExtra,
+      [MarshalAs( UnmanagedType.LPArray )][Out] char[]? pszOut,
       ref int pcchOut );
 
    [DllImport( "dwmapi.dll", PreserveSig = true )]

@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -8,7 +6,7 @@ namespace ZemotoCommon;
 
 internal sealed class SystemFileJsonConverter : JsonConverter<SystemFile>
 {
-   public override SystemFile Read( ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options ) => new( reader.GetString() );
+   public override SystemFile Read( ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options ) => new( reader.GetString() ?? string.Empty );
    public override void Write( Utf8JsonWriter writer, SystemFile value, JsonSerializerOptions options ) => writer.WriteStringValue( value.FullPath );
 }
 
@@ -28,14 +26,14 @@ internal sealed class SystemFile
 
          FullPath = path;
          Name = Path.GetFileName( path );
-         Directory = Path.GetDirectoryName( path );
+         Directory = Path.GetDirectoryName( path ) ?? string.Empty;
       }
       catch
       {
          // Default to null file on failure to parse path
-         FullPath = null;
-         Name = null;
-         Directory = null;
+         FullPath = string.Empty;
+         Name = string.Empty;
+         Directory = string.Empty;
       }
    }
 
@@ -58,7 +56,7 @@ internal sealed class SystemFile
       return false;
    }
 
-   public T DeserializeContents<T>() => ReadAllText( out string contents ) ? JsonSerializer.Deserialize<T>( contents, _serializerOptions ) : default;
+   public T? DeserializeContents<T>() => ReadAllText( out string contents ) ? JsonSerializer.Deserialize<T>( contents, _serializerOptions ) : default;
 
    public void SerializeInto<T>( T objectToSerialize )
    {
@@ -78,7 +76,7 @@ internal sealed class SystemFile
       }
       catch
       {
-         copiedFile = null;
+         copiedFile = string.Empty;
          return false;
       }
    }
@@ -93,7 +91,7 @@ internal sealed class SystemFile
       }
       catch
       {
-         movedFile = null;
+         movedFile = string.Empty;
          return false;
       }
    }
@@ -113,31 +111,28 @@ internal sealed class SystemFile
    public string Name { get; }
    public string Directory { get; }
 
-   private string _nameNoExtension;
-   public string NameNoExtension => _nameNoExtension ??= Path.GetFileNameWithoutExtension( FullPath );
+   public string NameNoExtension => field ??= Path.GetFileNameWithoutExtension( FullPath );
 
-   private string _extension;
-   public string Extension => _extension ??= Path.GetExtension( FullPath );
+   public string Extension => field ??= Path.GetExtension( FullPath );
 
-   private string _abbreviatedPath;
    public string AbbreviatedPath
    {
       get
       {
-         if ( string.IsNullOrEmpty( _abbreviatedPath ) )
+         if ( string.IsNullOrEmpty( field ) )
          {
             if ( string.IsNullOrEmpty( FullPath ) )
             {
-               _abbreviatedPath = string.Empty;
+               field = string.Empty;
             }
             else
             {
                string[] parts = FullPath.Split( '\\' );
-               _abbreviatedPath = parts.Length <= 3 ? FullPath : $@"..\{string.Join( @"\", parts.TakeLast( 2 ) )}";
+               field = parts.Length <= 3 ? FullPath : $@"..\{string.Join( @"\", parts.TakeLast( 2 ) )}";
             }
          }
 
-         return _abbreviatedPath;
+         return field;
       }
    }
 

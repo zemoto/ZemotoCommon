@@ -11,11 +11,11 @@ internal sealed class BindingErrorListener : TraceListener
 {
    public BindingErrorListener() => PresentationTraceSources.DataBindingSource.Listeners.Add( this );
 
-   public override void Write( string message )
+   public override void Write( string? message )
    {
    }
 
-   public override void WriteLine( string message )
+   public override void WriteLine( string? message )
    {
       if ( !string.IsNullOrEmpty( message ) )
       {
