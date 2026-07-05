@@ -15,6 +15,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Debugging\BindingErrorListener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeepCopy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LocalizedDescriptionAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ScopeGuard.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SingleInstance.cs" />
