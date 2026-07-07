@@ -56,12 +56,27 @@ internal sealed class SystemFile
       return false;
    }
 
+   public bool WriteAllText( string contents )
+   {
+      try
+      {
+         File.WriteAllText( FullPath, contents );
+         return true;
+      }
+      catch
+      {
+         // Fall through to fail case
+      }
+
+      return false;
+   }
+
    public T? DeserializeContents<T>() => ReadAllText( out string contents ) ? JsonSerializer.Deserialize<T>( contents, _serializerOptions ) : default;
 
    public void SerializeInto<T>( T objectToSerialize )
    {
       string serializedContent = JsonSerializer.Serialize( objectToSerialize, _serializerOptions );
-      File.WriteAllText( FullPath, serializedContent );
+      _ = WriteAllText( serializedContent );
    }
 
    public bool CopyTo( string targetDir, string fileNameNoExtension, bool overwrite, out SystemFile copiedFile ) => CopyTo( Path.Combine( targetDir, fileNameNoExtension + Extension ), overwrite, out copiedFile );
