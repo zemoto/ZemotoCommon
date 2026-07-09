@@ -168,8 +168,8 @@ internal sealed class OutlinedTextBlock : FrameworkElement
    {
       EnsureFormattedText();
 
-      _formattedText?.MaxTextWidth = Math.Min( 3579139, availableSize.Width );
-      _formattedText?.MaxTextHeight = Math.Max( 0.0001d, availableSize.Height );
+      _ = ( _formattedText?.MaxTextWidth = Math.Min( 3579139, availableSize.Width ) );
+      _ = ( _formattedText?.MaxTextHeight = Math.Max( 0.0001d, availableSize.Height ) );
 
       return new Size( Math.Ceiling( _formattedText?.Width ?? 0 ), Math.Ceiling( _formattedText?.Height ?? 0 ) );
    }
@@ -178,8 +178,8 @@ internal sealed class OutlinedTextBlock : FrameworkElement
    {
       EnsureFormattedText();
 
-      _formattedText?.MaxTextWidth = finalSize.Width;
-      _formattedText?.MaxTextHeight = Math.Max( 0.0001d, finalSize.Height );
+      _ = ( _formattedText?.MaxTextWidth = finalSize.Width );
+      _ = ( _formattedText?.MaxTextHeight = Math.Max( 0.0001d, finalSize.Height ) );
       _textGeometry = null;
 
       return finalSize;
