@@ -7,6 +7,8 @@ internal static class UtilityMethods
 {
    public static void OpenInBrowser( string url ) => Process.Start( new ProcessStartInfo( new UriBuilder( url ).ToString() ) { UseShellExecute = true } );
 
+   public static void OpenFileOrFileLocationInExplorer( string filePath ) => Process.Start( new ProcessStartInfo( filePath ) { UseShellExecute = true } );
+
    public static string MakeUniqueFileName( string filePath )
    {
       string? dir = Path.GetDirectoryName( filePath );
