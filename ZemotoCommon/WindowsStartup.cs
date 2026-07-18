@@ -68,10 +68,17 @@ internal static class WindowsStartup
    {
       try
       {
-         RegistryKey? regKey = Registry.CurrentUser.OpenSubKey( _startupAllowedRegKey, true );
+         // Verify we can write to the key used to enable starting with Windows
+         if ( Registry.CurrentUser.OpenSubKey( _startupRegKey, true ) is null )
+         {
+            NotAllowedReason = "Insufficient write permissions, try running this app as admin.";
+            return false;
+         }
+
+         RegistryKey? regKey = Registry.CurrentUser.OpenSubKey( _startupAllowedRegKey );
          if ( regKey is null )
          {
-            NotAllowedReason = "Insufficient read or write permissions, try running this app as admin.";
+            NotAllowedReason = "Insufficient read permissions, try running this app as admin.";
             return false;
          }
 
@@ -85,7 +92,7 @@ internal static class WindowsStartup
       }
       catch
       {
-         NotAllowedReason = "Insufficient read or write permissions, try running this app as admin.";
+         NotAllowedReason = "Insufficient registry permissions, try running this app as admin.";
          return false;
       }
    }
