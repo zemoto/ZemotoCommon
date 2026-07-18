@@ -1,7 +1,8 @@
-﻿using System.Diagnostics;
+﻿#if ZEMOTOUNSAFE
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace ZemotoCommon;
+namespace ZemotoCommon.Unsafe;
 
 // This class creates a "job" and allows the rest of the app to add child processes to it.
 // When the job goes out of scope (program crashes, closes, exits, etc), all added child
@@ -47,3 +48,4 @@ internal static class ChildProcessWatcher
       return NativeMethods.AssignProcessToJobObject( _handle, process.Handle );
    }
 }
+#endif

@@ -1,7 +1,8 @@
-﻿#if ZEMOTOUI
+﻿#if ZEMOTOUI && ZEMOTOUNSAFE
 // Based on https://stackoverflow.com/questions/3372303/dropshadow-for-wpf-borderless-window
 using System.Windows;
 using System.Windows.Interop;
+using ZemotoCommon.Unsafe;
 
 namespace ZemotoCommon.UI;
 

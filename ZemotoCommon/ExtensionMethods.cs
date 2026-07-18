@@ -11,14 +11,6 @@ internal static class ExtensionMethods
 
    public static double MapNumberToRange( this double value, double oldMin, double oldMax, double newMin, double newMax ) => ( ( value - oldMin ) / ( oldMax - oldMin ) * ( newMax - newMin ) ) + newMin;
 
-   public static void StartAsChildProcess( this Process process )
-   {
-      ArgumentNullException.ThrowIfNull( process );
-
-      _ = process.Start();
-      _ = ChildProcessWatcher.AddProcess( process );
-   }
-
    public static void ForEach<T>( this IEnumerable<T> collection, Action<T> action ) => collection.ToList().ForEach( action );
 
    public static T? GetAttribute<T>( this Enum enumValue ) where T : Attribute
