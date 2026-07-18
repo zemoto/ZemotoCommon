@@ -15,7 +15,8 @@ internal abstract class CommonApp : Application, IDisposable
       _singleInstance = new SingleInstance( instanceName, listenForOtherInstances );
       if ( !_singleInstance.Claim() )
       {
-         Shutdown();
+         // Exit immediately so no more app code runs. Running instance has already been pinged.
+         Environment.Exit( 0 );
       }
 
       if ( listenForOtherInstances )
