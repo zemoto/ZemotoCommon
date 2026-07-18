@@ -2,7 +2,7 @@
 
 namespace ZemotoCommon;
 
-internal static class NativeMethods
+internal static partial class NativeMethods
 {
    public const int DWMWA_NCRENDERING_POLICY = 2;
    public const int DWMNCRP_ENABLED = 2;
@@ -64,21 +64,23 @@ internal static class NativeMethods
       public UIntPtr PeakJobMemoryUsed;
    }
 
-   [DllImport( "kernel32.dll", CharSet = CharSet.Unicode )]
+   [LibraryImport( "kernel32.dll", StringMarshalling = StringMarshalling.Utf16 )]
    [DefaultDllImportSearchPaths( DllImportSearchPath.System32 )]
-   public static extern IntPtr CreateJobObject( IntPtr lpJobAttributes, string name );
+   public static partial IntPtr CreateJobObject( IntPtr lpJobAttributes, string name );
 
-   [DllImport( "kernel32.dll" )]
+   [LibraryImport( "kernel32.dll" )]
    [DefaultDllImportSearchPaths( DllImportSearchPath.System32 )]
-   public static extern bool SetInformationJobObject( IntPtr hJob, JobObjectInfoType infoType, IntPtr lpJobObjectInfo, uint cbJobObjectInfoLength );
+   [return: MarshalAs( UnmanagedType.Bool )]
+   public static partial bool SetInformationJobObject( IntPtr hJob, JobObjectInfoType infoType, IntPtr lpJobObjectInfo, uint cbJobObjectInfoLength );
 
-   [DllImport( "kernel32.dll", SetLastError = true )]
+   [LibraryImport( "kernel32.dll", SetLastError = true )]
    [DefaultDllImportSearchPaths( DllImportSearchPath.System32 )]
-   public static extern bool AssignProcessToJobObject( IntPtr job, IntPtr process );
+   [return: MarshalAs( UnmanagedType.Bool )]
+   public static partial bool AssignProcessToJobObject( IntPtr job, IntPtr process );
 
-   [DllImport( "shlwapi.dll", CharSet = CharSet.Unicode )]
+   [LibraryImport( "shlwapi.dll", StringMarshalling = StringMarshalling.Utf16 )]
    [DefaultDllImportSearchPaths( DllImportSearchPath.System32 )]
-   public static extern int AssocQueryString(
+   public static partial int AssocQueryString(
       int flags,
       int assocStr,
       [MarshalAs( UnmanagedType.LPWStr )] string? pszAssoc,
@@ -86,15 +88,26 @@ internal static class NativeMethods
       [MarshalAs( UnmanagedType.LPArray )][Out] char[]? pszOut,
       ref int pcchOut );
 
-   [DllImport( "dwmapi.dll", PreserveSig = true )]
+   [LibraryImport( "dwmapi.dll" )]
    [DefaultDllImportSearchPaths( DllImportSearchPath.System32 )]
-   public static extern int DwmSetWindowAttribute( IntPtr hwnd, int attr, ref int attrValue, int attrSize );
+   public static partial int DwmSetWindowAttribute( IntPtr hwnd, int attr, ref int attrValue, int attrSize );
 
-   [DllImport( "dwmapi.dll" )]
+   [LibraryImport( "dwmapi.dll" )]
    [DefaultDllImportSearchPaths( DllImportSearchPath.System32 )]
-   public static extern int DwmExtendFrameIntoClientArea( IntPtr hWnd, ref Margins pMarInset );
+   public static partial int DwmExtendFrameIntoClientArea( IntPtr hWnd, ref Margins pMarInset );
 
-   [DllImport( "user32.dll" )]
+   [LibraryImport( "user32.dll" )]
    [DefaultDllImportSearchPaths( DllImportSearchPath.System32 )]
-   public static extern bool SetForegroundWindow( IntPtr hWnd );
+   [return: MarshalAs( UnmanagedType.Bool )]
+   public static partial bool SetForegroundWindow( IntPtr hWnd );
+
+   [LibraryImport( "user32.dll" )]
+   [DefaultDllImportSearchPaths( DllImportSearchPath.System32 )]
+   [return: MarshalAs( UnmanagedType.Bool )]
+   public static partial bool RegisterHotKey( IntPtr hWnd, int id, uint fsModifiers, uint vk );
+
+   [LibraryImport( "user32.dll" )]
+   [DefaultDllImportSearchPaths( DllImportSearchPath.System32 )]
+   [return: MarshalAs( UnmanagedType.Bool )]
+   public static partial bool UnregisterHotKey( IntPtr hWnd, int id );
 }
