@@ -1,5 +1,4 @@
 ﻿#if ZEMOTOUI
-using System.IO;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -35,7 +34,7 @@ internal abstract class CommonApp : Application, IDisposable
 
    protected override void OnExit( ExitEventArgs e ) => Dispose();
 
-   private void OnUnhandledException( object sender, DispatcherUnhandledExceptionEventArgs e ) => File.WriteAllText( "crash.txt", e.Exception.ToString() );
+   private void OnUnhandledException( object sender, DispatcherUnhandledExceptionEventArgs e ) => _ = new SystemFile( "crash.txt" ).WriteAllText( e.Exception.ToString() );
 
    protected virtual void OnPingedByOtherProcess() { }
 }
